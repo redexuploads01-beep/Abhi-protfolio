@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abhi | Motion Designer & Video Editor Portfolio</title>
+    <link rel="icon" type="image/png" href="input_file_0.png">
     
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
-    <link rel="icon" href="input_file_0.png">
-
     <!-- LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -41,14 +40,8 @@
             box-sizing: border-box;
         }
 
-        /* Hide the default cursor only after JavaScript confirms the custom cursor is working. */
         body.custom-cursor-enabled * {
             cursor: none !important;
-        }
-
-        body:not(.custom-cursor-enabled) #cursor-dot,
-        body:not(.custom-cursor-enabled) #cursor-outline {
-            display: none;
         }
 
         html {
@@ -71,7 +64,7 @@
             z-index: 9999;
             pointer-events: none;
             opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Update%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             animation: noise-anim 0.2s infinite;
         }
 
@@ -278,51 +271,45 @@
             overflow: hidden;
         }
 
-        .editor-ui.interactive-hero {
+        .editor-ui.hero-reel-trigger {
             cursor: pointer;
-            transition: transform 0.45s cubic-bezier(0.2, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
         }
 
-        .editor-ui.interactive-hero::after {
+        .editor-ui.hero-reel-trigger::after {
             content: 'Click to view showreel area';
             position: absolute;
             right: 18px;
-            bottom: 18px;
-            padding: 7px 11px;
+            bottom: 16px;
+            padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(215,38,38,0.32);
             background: rgba(5,5,5,0.72);
+            border: 1px solid rgba(215,38,38,0.22);
             color: var(--text-muted);
-            font-size: 0.65rem;
-            letter-spacing: 1px;
+            font-size: 0.68rem;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
             opacity: 0;
             transform: translateY(8px);
-            transition: 0.3s ease;
+            transition: 0.35s ease;
         }
 
-        .editor-ui.interactive-hero:hover {
-            border-color: rgba(215,38,38,0.55);
-            box-shadow: 0 38px 80px rgba(0,0,0,0.55), 0 0 45px rgba(215,38,38,0.16);
-        }
-
-        .editor-ui.interactive-hero:hover::after {
+        .editor-ui.hero-reel-trigger:hover::after {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .editor-ui.interactive-hero:hover .ui-play {
+        .editor-ui.hero-reel-trigger:hover .ui-play {
             transform: scale(1.12);
-            box-shadow: 0 0 42px rgba(215,38,38,0.62);
+            box-shadow: 0 0 45px rgba(215,38,38,0.65);
         }
 
-        .editor-ui.interactive-hero:hover .ui-clip {
-            animation: hero-timeline-move 1.15s ease-in-out infinite alternate;
+        .editor-ui.hero-reel-trigger:hover .ui-clip {
+            animation: hero-track-pulse 1.2s ease-in-out infinite alternate;
         }
 
-        @keyframes hero-timeline-move {
-            from { transform: translateX(0); }
-            to { transform: translateX(18px); }
+        @keyframes hero-track-pulse {
+            from { transform: translateX(0); opacity: 0.45; }
+            to { transform: translateX(18px); opacity: 0.85; }
         }
 
         .ui-header { display: flex; gap: 8px; margin-bottom: 20px; }
@@ -346,7 +333,6 @@
             background: var(--primary-red);
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 0 20px var(--red-glow);
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
         .ui-timeline {
@@ -686,33 +672,200 @@
         .work-card:hover .work-overlay { opacity: 1; }
 
         /* --- CASE STUDIES --- */
-        .case-studies-grid { display: flex; flex-direction: column; gap: 60px; }
+        .case-studies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 28px;
+        }
+
         .case-card {
+            background: linear-gradient(145deg, rgba(16,16,16,0.96), rgba(8,8,8,0.92));
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+            transform-style: preserve-3d;
+        }
+
+        .case-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(215,38,38,0.16), transparent 58%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .case-card:hover::before { opacity: 1; }
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(215,38,38,0.55);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.42), 0 0 34px rgba(215,38,38,0.14);
+            background: var(--bg-card-hover);
+        }
+
+        .case-visual {
+            position: relative;
+            overflow: hidden;
+            background: #050505;
+            aspect-ratio: 16 / 9;
+        }
+
+        .case-card[data-case-type="short"] .case-visual {
+            aspect-ratio: 9 / 16;
+            max-height: 560px;
+        }
+
+        .case-visual img,
+        .case-visual iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease, opacity 0.35s ease;
+        }
+
+        .case-card:hover .case-visual img { transform: scale(1.06); }
+
+        .case-label {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 6px 12px;
+            background: rgba(5,5,5,0.74);
+            border: 1px solid rgba(215,38,38,0.34);
+            color: var(--highlight);
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 4;
+            backdrop-filter: blur(10px);
+        }
+
+        .case-play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.55));
+            z-index: 3;
+            transition: background 0.35s ease;
+        }
+
+        .case-card:hover .case-play-overlay { background: rgba(215,38,38,0.16); }
+
+        .case-play-btn {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 35px rgba(215,38,38,0.45);
+            font-size: 1.45rem;
+            transform: translateZ(40px);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .case-card:hover .case-play-btn {
+            transform: scale(1.12) translateZ(40px);
+            box-shadow: 0 0 60px rgba(215,38,38,0.7);
+        }
+
+        .case-timeline-preview {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            height: 7px;
+            border-radius: 999px;
+            background: repeating-linear-gradient(90deg, rgba(215,38,38,0.95) 0 38px, rgba(255,255,255,0.16) 38px 54px, rgba(243,231,198,0.7) 54px 78px, rgba(255,255,255,0.08) 78px 94px);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: 0.35s ease;
+            z-index: 4;
+        }
+
+        .case-card:hover .case-timeline-preview {
+            opacity: 1;
+            transform: translateY(0);
+            animation: timeline-preview 1.2s linear infinite;
+        }
+
+        .case-content { padding: 28px; position: relative; z-index: 2; }
+        .case-content h3 { font-size: 1.35rem; margin-bottom: 12px; }
+        .case-content p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 18px; }
+
+        .case-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: var(--bg-card);
+            gap: 14px;
+            margin: 18px 0;
+        }
+
+        .case-column {
+            background: rgba(255,255,255,0.035);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            overflow: hidden;
-            min-height: 500px;
+            border-radius: 12px;
+            padding: 16px;
         }
-        .case-visual { position: relative; overflow: hidden; background: #000; }
-        .case-label { position: absolute; top: 20px; left: 20px; padding: 5px 15px; background: var(--primary-red); border-radius: 4px; font-size: 0.7rem; font-weight: 700; z-index: 2; }
-        .case-after-img { width: 100%; height: 100%; object-fit: cover; }
-        .case-before-overlay { 
-            position: absolute; top: 0; right: 0; height: 100%; width: 50%; 
-            border-left: 2px solid var(--primary-red); overflow: hidden;
-            transition: width 0.5s ease;
+
+        .case-column b {
+            display: block;
+            color: var(--text-white);
+            font-family: var(--font-head);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
         }
-        .case-card:hover .case-before-overlay { width: 0%; }
-        .case-before-img { height: 100%; width: 200%; position: absolute; right: 0; object-fit: cover; filter: grayscale(1) opacity(0.5); }
 
-        .case-content { padding: 60px; }
-        .case-content h3 { font-size: 2rem; margin-bottom: 20px; }
-        .case-metrics { display: flex; gap: 30px; margin: 30px 0; }
-        .metric-item b { display: block; font-size: 1.5rem; color: var(--primary-red); }
-        .metric-item span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+        .case-column ul,
+        .case-decisions ul {
+            list-style: none;
+        }
 
+        .case-column li,
+        .case-decisions li {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .case-column li::before,
+        .case-decisions li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+        }
+
+        .case-decisions {
+            border-top: 1px solid var(--border);
+            padding-top: 18px;
+            margin-top: 18px;
+        }
+
+        .case-cta {
+            margin-top: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .case-note {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
         /* --- PROCESS --- */
         .process-steps {
             display: flex;
@@ -725,25 +878,22 @@
         .process-line {
             position: absolute;
             left: 60px;
-            top: 58px;
+            top: 30px;
             width: 2px;
-            height: calc(100% - 116px);
-            background: rgba(255,255,255,0.055);
+            height: calc(100% - 60px);
+            background: rgba(255,255,255,0.05);
             z-index: 0;
-            pointer-events: none;
         }
         .process-progress {
             position: absolute;
             left: 60px;
-            top: 58px;
+            top: 30px;
             width: 2px;
             height: 0%;
-            max-height: calc(100% - 116px);
             background: var(--primary-red);
             box-shadow: 0 0 15px var(--primary-red);
-            transition: height 0.35s ease;
+            transition: height 0.5s;
             z-index: 0;
-            pointer-events: none;
         }
         .step-item {
             display: flex;
@@ -761,8 +911,6 @@
             width: 60px; height: 60px;
             background: var(--bg-main);
             border: 2px solid var(--primary-red);
-            position: relative;
-            z-index: 2;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-family: var(--font-head); font-weight: 800; font-size: 1.2rem;
@@ -775,36 +923,23 @@
         /* --- ABOUT --- */
         .about-grid {
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 70px;
+            grid-template-columns: 0.82fr 1.18fr;
+            gap: 58px;
             align-items: center;
         }
 
         .about-photo-card {
-            background:
-                radial-gradient(circle at 50% 15%, rgba(215,38,38,0.14), transparent 42%),
-                linear-gradient(145deg, rgba(16,16,16,0.98), rgba(8,8,8,0.94));
+            max-width: 520px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(16,16,16,0.98), rgba(5,5,5,0.96));
             border: 1px solid rgba(215,38,38,0.28);
             border-radius: 24px;
-            padding: 44px 32px 28px;
+            padding: 42px 30px 32px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 35px 80px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.02);
-            transform-style: preserve-3d;
             text-align: center;
-            min-height: 480px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .about-photo-card::after {
-            content: '';
-            position: absolute;
-            inset: 14px;
-            border: 1px solid rgba(215,38,38,0.16);
-            border-radius: 20px;
-            pointer-events: none;
+            box-shadow: 0 35px 80px rgba(0,0,0,0.45), 0 0 45px rgba(215,38,38,0.08);
+            transform-style: preserve-3d;
         }
 
         .about-photo-card::before,
@@ -824,15 +959,15 @@
         .about-value-card:hover::before { opacity: 1; }
 
         .about-photo-frame {
-            width: 188px;
-            height: 188px;
-            margin: 0 auto 28px;
+            width: 190px;
+            height: 190px;
+            margin: 0 auto 24px;
             position: relative;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid rgba(215,38,38,0.24);
-            box-shadow: 0 0 0 8px rgba(215,38,38,0.055), 0 0 34px rgba(215,38,38,0.22);
-            z-index: 2;
+            border: 8px solid rgba(215,38,38,0.18);
+            box-shadow: 0 0 35px rgba(215,38,38,0.2);
+            background: #050505;
         }
 
         .about-photo-frame img {
@@ -843,54 +978,54 @@
             filter: saturate(1.04) contrast(1.05);
         }
 
-        .about-profile-name {
-            position: relative;
-            z-index: 2;
-            font-family: var(--font-head);
-            font-size: 1.42rem;
-            font-weight: 800;
+        .about-photo-card-name {
+            font-size: 1.28rem;
             margin-bottom: 4px;
         }
 
-        .about-profile-role {
-            position: relative;
-            z-index: 2;
+        .about-photo-card-role {
             color: var(--primary-red);
+            text-transform: uppercase;
             font-weight: 800;
-            font-size: 0.88rem;
-            text-transform: uppercase;
-            letter-spacing: 1.6px;
+            letter-spacing: 1.4px;
             margin-bottom: 18px;
+            font-size: 0.9rem;
         }
 
-        .about-profile-strip {
-            position: relative;
-            z-index: 2;
+        .about-photo-card-tags {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 26px;
             color: var(--text-muted);
-            font-size: 0.72rem;
+            font-size: 0.78rem;
             text-transform: uppercase;
-            letter-spacing: 1.6px;
-            margin-bottom: 24px;
+            letter-spacing: 1.4px;
         }
 
-        .about-profile-copy {
-            position: relative;
-            z-index: 2;
+        .about-photo-card-tags .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            box-shadow: 0 0 15px rgba(215,38,38,0.6);
+        }
+
+        .about-photo-card-copy {
             color: var(--text-muted);
-            font-size: 0.95rem;
             max-width: 390px;
-            margin: 0 auto 24px;
+            margin: 0 auto;
+            font-size: 0.96rem;
+            line-height: 1.8;
         }
-
-        .about-photo-badge { display: none; }
 
         .about-mini-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            margin-top: 16px;
-            position: relative;
-            z-index: 2;
+            margin-top: 26px;
         }
 
         .about-mini-stat {
@@ -946,7 +1081,7 @@
         }
 
         .about-intro {
-            font-size: clamp(1.55rem, 2.4vw, 2.45rem);
+            font-size: clamp(1.45rem, 2.2vw, 2.25rem);
             line-height: 1.18;
             margin-bottom: 24px;
             color: var(--text-white);
@@ -1042,7 +1177,6 @@
             font-size: 0.75rem;
             font-weight: 700;
         }
-
         /* --- FAQ --- */
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { border-bottom: 1px solid var(--border); }
@@ -1158,9 +1292,70 @@
             .about-focus-list { grid-template-columns: 1fr; }
             .about-values-grid { grid-template-columns: 1fr; }
             .about-mini-stats { grid-template-columns: 1fr; }
-            .about-photo-card { min-height: auto; padding: 34px 22px 24px; }
-            .about-photo-frame { width: 150px; height: 150px; }
         }
+
+
+        /* --- RESPONSIVE POLISH / PERFORMANCE --- */
+        @media (hover: none), (pointer: coarse), (max-width: 900px) {
+            body.custom-cursor-enabled * { cursor: auto !important; }
+            #cursor-dot, #cursor-outline { display: none !important; }
+            .tilt, .service-card, .case-card, .about-photo-card, .about-text-card, .about-value-card { transform: none !important; }
+        }
+
+        @media (max-width: 1180px) {
+            section { padding-left: 6%; padding-right: 6%; }
+            .case-studies-grid { grid-template-columns: 1fr; max-width: 760px; }
+            .case-card[data-case-type="short"] .case-visual { aspect-ratio: 16 / 9; max-height: none; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-photo-card { max-width: 520px; }
+        }
+
+        @media (max-width: 900px) {
+            nav { height: 74px; padding: 0 4%; }
+            .nav-brand-text span { display: none; }
+            .nav-btns .btn-outline { display: none; }
+            .btn { padding: 11px 16px; }
+            .hero { min-height: auto; }
+            .hero-stats { justify-content: center; flex-wrap: wrap; gap: 28px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .case-columns { grid-template-columns: 1fr; }
+            .process-line, .process-progress { left: 48px; }
+            .step-item { gap: 22px; padding: 24px; }
+            .step-num { width: 50px; height: 50px; font-size: 1rem; }
+            .about-values-grid { grid-template-columns: 1fr 1fr; }
+            .contact-form { padding: 32px; }
+        }
+
+        @media (max-width: 640px) {
+            section { padding: 72px 5%; }
+            .section-header { margin-bottom: 46px; }
+            .section-header h2 { font-size: 2.15rem; }
+            .hero-content h1 { font-size: clamp(2.35rem, 13vw, 3rem); }
+            .hero-content p { font-size: 1rem; }
+            .editor-ui { height: 280px; padding: 16px; }
+            .ui-preview { height: 145px; }
+            .hero-stats { margin-top: 42px; }
+            .stat-item h3 { font-size: 1.65rem; }
+            .showreel-empty { min-height: 430px; }
+            .empty-showreel-content { padding: 28px; }
+            .portfolio-grid { grid-template-columns: 1fr; gap: 22px; }
+            .work-card[data-category="short"] .work-img-container { aspect-ratio: 9 / 14; }
+            .case-content { padding: 24px; }
+            .case-play-btn { width: 62px; height: 62px; font-size: 1.2rem; }
+            .process-line, .process-progress { left: 43px; }
+            .step-item { gap: 16px; padding: 20px; }
+            .step-num { width: 46px; height: 46px; }
+            .about-photo-card { padding: 34px 20px 26px; }
+            .about-photo-frame { width: 155px; height: 155px; }
+            .about-mini-stats, .about-values-grid { grid-template-columns: 1fr; }
+            .about-text-card { padding: 26px; }
+            .about-focus-list { grid-template-columns: 1fr; }
+            .contact-grid { gap: 36px; }
+            .contact-info h2 { font-size: 2.25rem; }
+            .footer-links { gap: 18px; flex-wrap: wrap; }
+            .modal-content { max-width: 96vw; }
+        }
+
     </style>
 </head>
 <body>
@@ -1184,6 +1379,7 @@
             <a href="#showreel">Showreel</a>
             <a href="#services">Services</a>
             <a href="#work">Work</a>
+            <a href="#case-studies">Breakdown</a>
             <a href="#process">Process</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
@@ -1220,7 +1416,7 @@
         </div>
         <div class="hero-visual">
             <!-- Paste your future showreel link in data-youtube and add video-trigger class here when ready -->
-            <div class="editor-ui interactive-hero magnetic" id="hero-showreel-preview" data-youtube="PASTE_SHOWREEL_LINK_HERE" role="button" tabindex="0" aria-label="Go to showreel section">
+            <div class="editor-ui magnetic hero-reel-trigger" data-youtube="PASTE_SHOWREEL_LINK_HERE" role="button" tabindex="0" aria-label="Open showreel or scroll to showreel section">
                 <div class="ui-header">
                     <div class="ui-dot red"></div>
                     <div class="ui-dot"></div>
@@ -1338,8 +1534,8 @@
             <!-- Thumbnail tip: replace each <img src="..."> with your own 16:9 long-form/brand thumbnail or 9:16 short-form thumbnail for best results. -->
 
             <div class="work-card" data-category="long">
-                <div class="work-img-container video-trigger" data-youtube="https://www.youtube.com/watch?v=YAHxPgKXIFw">
-                    <img src="https://img.youtube.com/vi/YAHxPgKXIFw/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/YAHxPgKXIFw/hqdefault.jpg'" alt="Problem With Fitness Tier Lists">
+                <div class="work-img-container video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">
+                    <img src="https://img.youtube.com/vi/4s-38MIhaKg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/4s-38MIhaKg/hqdefault.jpg'" alt="Problem With Fitness Tier Lists">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
                 </div>
                 <div class="work-info">
@@ -1406,8 +1602,8 @@
             </div>
 
             <div class="work-card" data-category="short">
-                <div class="work-img-container video-trigger" data-youtube="https://www.youtube.com/watch?v=2tT-PO0y9Mc">
-                    <img src="https://img.youtube.com/vi/2tT-PO0y9Mc/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2tT-PO0y9Mc/hqdefault.jpg'" alt="Short-Form Retention Edit 01">
+                <div class="work-img-container video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">
+                    <img src="https://img.youtube.com/vi/HGptuF0sdWE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/HGptuF0sdWE/hqdefault.jpg'" alt="Short-Form Retention Edit 01">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
                 </div>
                 <div class="work-info">
@@ -1512,29 +1708,127 @@
     <section id="case-studies">
         <div class="section-header">
             <h2>The <span class="red-text">Breakdown</span></h2>
-            <p>See how raw footage transforms into high-performing content.</p>
+            <p>Playable mini case studies showing how footage turns into cleaner, sharper, more engaging edits.</p>
         </div>
         <div class="case-studies-grid container">
-            <div class="case-card">
-                <div class="case-visual">
-                    <span class="case-label">Hover to See Before</span>
-                    <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22600%22%20viewBox%3D%220%200%20800%20600%22%3E%3Crect%20width%3D%22800%22%20height%3D%22600%22%20fill%3D%22%23101010%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22300%22%20r%3D%22170%22%20fill%3D%22none%22%20stroke%3D%22%23D72626%22%20stroke-width%3D%224%22%20opacity%3D%220.35%22/%3E%3Ctext%20x%3D%22400%22%20y%3D%22310%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%20fill%3D%22%23D72626%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22800%22%20letter-spacing%3D%223%22%3EAFTER%20EDIT%3C/text%3E%3C/svg%3E" class="case-after-img" alt="After">
-                    <div class="case-before-overlay">
-                        <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22800%22%20height%3D%22600%22%20viewBox%3D%220%200%20800%20600%22%3E%3Crect%20width%3D%22800%22%20height%3D%22600%22%20fill%3D%22%23333333%22/%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22300%22%20r%3D%22170%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%224%22%20opacity%3D%220.35%22/%3E%3Ctext%20x%3D%22400%22%20y%3D%22310%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%20fill%3D%22%23FFFFFF%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2258%22%20font-weight%3D%22800%22%20letter-spacing%3D%223%22%3ERAW%20FOOTAGE%3C/text%3E%3C/svg%3E" class="case-before-img" alt="Before">
-                    </div>
+            <!-- First two breakdowns use real before/after videos. Replace the third brand-ad link with a dedicated brand-ad before/after breakdown whenever ready. -->
+            <div class="case-card tilt" data-case-type="long">
+                <div class="case-visual video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">
+                    <span class="case-label">Long-Form Before/After</span>
+                    <img src="https://img.youtube.com/vi/4s-38MIhaKg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/4s-38MIhaKg/hqdefault.jpg'" alt="Before-after long-form breakdown preview">
+                    <div class="case-play-overlay"><div class="case-play-btn">▶</div></div>
+                    <div class="case-timeline-preview"></div>
                 </div>
                 <div class="case-content">
-                    <h3>Raw Talking Head → Engaging Segment</h3>
-                    <p>We took 20 minutes of raw footage and condensed it into a 5-minute powerhouse of information.</p>
-                    <div class="case-metrics">
-                        <div class="metric-item"><b>+45%</b><span>Retention</span></div>
-                        <div class="metric-item"><b>12k+</b><span>New Views</span></div>
+                    <h3>Before → After Long-Form Edit</h3>
+                    <p>A real before/after breakdown showing how a long-form talking-head edit becomes tighter, cleaner, and easier to watch.</p>
+                    <div class="case-columns">
+                        <div class="case-column">
+                            <b>Before</b>
+                            <ul>
+                                <li>Flat talking-head rhythm</li>
+                                <li>Long pauses and dead space</li>
+                                <li>Weak visual variation</li>
+                            </ul>
+                        </div>
+                        <div class="case-column">
+                            <b>After</b>
+                            <ul>
+                                <li>Tighter cuts and pacing</li>
+                                <li>B-roll and visual examples</li>
+                                <li>Motion callouts and sound hits</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul class="service-list">
-                        <li>Removed all dead space & filler words</li>
-                        <li>Added contextual motion graphics</li>
-                        <li>Multi-layer sound design for impact</li>
-                    </ul>
+                    <div class="case-decisions">
+                        <ul>
+                            <li>Removed filler gaps, added emphasis zooms, and built a stronger viewer flow.</li>
+                        </ul>
+                    </div>
+                    <div class="case-cta">
+                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
+                        <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">Watch Breakdown</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card tilt" data-case-type="short">
+                <div class="case-visual video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">
+                    <span class="case-label">Short-Form Breakdown</span>
+                    <img src="https://img.youtube.com/vi/HGptuF0sdWE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/HGptuF0sdWE/hqdefault.jpg'" alt="Before-after short-form breakdown preview">
+                    <div class="case-play-overlay"><div class="case-play-btn">▶</div></div>
+                    <div class="case-timeline-preview"></div>
+                </div>
+                <div class="case-content">
+                    <h3>Before → After Short-Form Edit</h3>
+                    <p>A real short-form before/after breakdown showing how pacing, captions, zooms, and sound design make the clip more engaging.</p>
+                    <div class="case-columns">
+                        <div class="case-column">
+                            <b>Before</b>
+                            <ul>
+                                <li>Normal clip energy</li>
+                                <li>Less visual hierarchy</li>
+                                <li>No strong rhythm</li>
+                            </ul>
+                        </div>
+                        <div class="case-column">
+                            <b>After</b>
+                            <ul>
+                                <li>Hook-first structure</li>
+                                <li>Dynamic captions</li>
+                                <li>SFX, zooms, and faster pacing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="case-decisions">
+                        <ul>
+                            <li>Built a punchier opening, added caption hierarchy, and matched cuts with audio energy.</li>
+                        </ul>
+                    </div>
+                    <div class="case-cta">
+                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
+                        <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">Watch Breakdown</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card tilt" data-case-type="ad">
+                <div class="case-visual video-trigger" data-youtube="https://www.youtube.com/watch?v=2XiiI_GJtRE">
+                    <span class="case-label">Brand Ad Breakdown</span>
+                    <img src="https://img.youtube.com/vi/2XiiI_GJtRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2XiiI_GJtRE/hqdefault.jpg'" alt="Loomia Trades AI brand ad breakdown preview">
+                    <div class="case-play-overlay"><div class="case-play-btn">▶</div></div>
+                    <div class="case-timeline-preview"></div>
+                </div>
+                <div class="case-content">
+                    <h3>Basic Brand Footage → Polished Product Ad</h3>
+                    <p>A brand/product ad example shaped with motion polish, product-focused framing, clean pacing, and a CTA-style flow.</p>
+                    <div class="case-columns">
+                        <div class="case-column">
+                            <b>Before</b>
+                            <ul>
+                                <li>Simple product idea</li>
+                                <li>Needs clearer structure</li>
+                                <li>Less premium motion feel</li>
+                            </ul>
+                        </div>
+                        <div class="case-column">
+                            <b>After</b>
+                            <ul>
+                                <li>Sharper brand flow</li>
+                                <li>Motion graphics support</li>
+                                <li>Cleaner visual hierarchy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="case-decisions">
+                        <ul>
+                            <li>Used product-focused cuts, motion emphasis, and pacing that feels more client-ready.</li>
+                        </ul>
+                    </div>
+                    <div class="case-cta">
+                        <span class="case-note">Click the preview to watch the ad.</span>
+                        <button class="btn btn-outline video-trigger" data-youtube="https://www.youtube.com/watch?v=2XiiI_GJtRE">Watch Breakdown</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1608,10 +1902,17 @@
                     <!-- Replace this image src with your profile photo if needed. Keep input_file_0.png in the same GitHub repo folder as index.html. -->
                     <img src="input_file_0.png" alt="Abhi aka Redex">
                 </div>
-                <h3 class="about-profile-name">Abhi aka Redex</h3>
-                <div class="about-profile-role">Motion Designer / Video Editor</div>
-                <div class="about-profile-strip">Editing · Motion Graphics · Sound Design</div>
-                <p class="about-profile-copy">I turn raw footage into clean, engaging, retention-focused videos for creators, brands, and businesses.</p>
+                <h3 class="about-photo-card-name">Abhi aka Redex</h3>
+                <div class="about-photo-card-role">Motion Designer / Video Editor</div>
+                <div class="about-photo-card-tags">
+                    <span class="dot"></span>
+                    <span>Editing</span>
+                    <span>·</span>
+                    <span>Motion Graphics</span>
+                    <span>·</span>
+                    <span>Retention</span>
+                </div>
+                <p class="about-photo-card-copy">I turn raw ideas and footage into clean, polished videos with pacing, sound design, motion graphics, and story-driven visual execution.</p>
                 <div class="about-mini-stats">
                     <div class="about-mini-stat"><b>2.5+</b><span>Years</span></div>
                     <div class="about-mini-stat"><b>50+</b><span>Videos</span></div>
@@ -1792,19 +2093,28 @@
     </div>
 
     <script>
-        // --- THREE.JS BACKGROUND ---
-        if (window.THREE && document.getElementById('canvas-container')) {
+        document.addEventListener('DOMContentLoaded', () => {
+            const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            if (isFinePointer) document.body.classList.add('custom-cursor-enabled');
+
+            // --- SAFE THREE.JS BACKGROUND ---
+            try {
+                if (window.THREE) {
+                    const canvasContainer = document.getElementById('canvas-container');
                     const scene = new THREE.Scene();
                     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
                     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
                     renderer.setSize(window.innerWidth, window.innerHeight);
-                    document.getElementById('canvas-container').appendChild(renderer.domElement);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.25 : 2));
+                    canvasContainer.appendChild(renderer.domElement);
 
-                    // Create abstract timeline strips
                     const geometries = [];
+                    const isMobile = window.innerWidth < 768;
+                    const stripCount = isMobile ? 8 : 15;
+                    const particleCount = isMobile ? 220 : 500;
                     const material = new THREE.MeshBasicMaterial({ color: 0xD72626, wireframe: true, transparent: true, opacity: 0.1 });
-        
-                    for(let i=0; i<15; i++) {
+
+                    for (let i = 0; i < stripCount; i++) {
                         const geometry = new THREE.PlaneGeometry(Math.random() * 5 + 2, 0.2);
                         const mesh = new THREE.Mesh(geometry, material);
                         mesh.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 10 - 15);
@@ -1813,322 +2123,299 @@
                         geometries.push(mesh);
                     }
 
-                    // Particles
                     const partGeo = new THREE.BufferGeometry();
-                    const partCount = 500;
-                    const posArray = new Float32Array(partCount * 3);
-                    for(let i=0; i<partCount * 3; i++) {
-                        posArray[i] = (Math.random() - 0.5) * 30;
-                    }
+                    const posArray = new Float32Array(particleCount * 3);
+                    for (let i = 0; i < particleCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 30;
                     partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-                    const partMat = new THREE.PointsMaterial({ size: 0.02, color: 0xD72626 });
+                    const partMat = new THREE.PointsMaterial({ size: isMobile ? 0.018 : 0.02, color: 0xD72626 });
                     const particles = new THREE.Points(partGeo, partMat);
                     scene.add(particles);
 
                     camera.position.z = 5;
-
-                    // Mouse Parallax for Background
                     let mouseX = 0;
                     let mouseY = 0;
                     window.addEventListener('mousemove', (e) => {
                         mouseX = (e.clientX / window.innerWidth) - 0.5;
                         mouseY = (e.clientY / window.innerHeight) - 0.5;
-                    });
+                    }, { passive: true });
 
-                    function animate() {
-                        requestAnimationFrame(animate);
+                    function animateBackground() {
+                        requestAnimationFrame(animateBackground);
                         geometries.forEach((g, i) => {
                             g.position.x += Math.sin(Date.now() * 0.001 + i) * 0.005;
                             g.rotation.y += 0.002;
                         });
                         particles.rotation.y += 0.001;
-            
                         camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
                         camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
                         camera.lookAt(scene.position);
-
                         renderer.render(scene, camera);
                     }
-                    animate();
+                    animateBackground();
 
-                    // Handle Resize
                     window.addEventListener('resize', () => {
                         camera.aspect = window.innerWidth / window.innerHeight;
                         camera.updateProjectionMatrix();
                         renderer.setSize(window.innerWidth, window.innerHeight);
                     });
-
-        } else {
-            console.warn('Three.js failed to load. Skipping 3D background so the rest of the site can still work.');
-        }
-
-        // --- CUSTOM CURSOR ---
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorOutline = document.getElementById('cursor-outline');
-        const canUseCustomCursor = cursorDot && cursorOutline && window.matchMedia('(pointer: fine)').matches;
-
-        if (canUseCustomCursor) {
-            document.body.classList.add('custom-cursor-enabled');
-
-            window.addEventListener('mousemove', (e) => {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                cursorOutline.animate({
-                    left: `${posX - 20}px`,
-                    top: `${posY - 20}px`
-                }, { duration: 450, fill: "forwards" });
-            });
-
-            const interactiveElements = document.querySelectorAll('a, button, .video-trigger, .tilt, .faq-question, .interactive-hero');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorOutline.style.width = '60px';
-                    cursorOutline.style.height = '60px';
-                    cursorOutline.style.background = 'rgba(215, 38, 38, 0.1)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorOutline.style.width = '40px';
-                    cursorOutline.style.height = '40px';
-                    cursorOutline.style.background = 'transparent';
-                });
-            });
-        }
-
-        // --- 3D TILT EFFECT ---
-        const tilts = document.querySelectorAll('.tilt');
-        tilts.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-                
-                // Set mouse position for the glow effect
-                card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-                card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-            });
-        });
-
-        // --- VIDEO MODAL LOGIC ---
-        const modal = document.getElementById('video-modal');
-        const iframe = document.getElementById('video-iframe');
-        const triggers = document.querySelectorAll('.video-trigger');
-        const closeBtn = document.querySelector('.close-modal');
-
-        function getYouTubeId(input) {
-            if (!input) return '';
-            const value = input.trim();
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=)([^&\s]+)/,
-                /(?:youtu\.be\/)([^?&\s]+)/,
-                /(?:youtube\.com\/embed\/)([^?&\s]+)/,
-                /(?:youtube\.com\/shorts\/)([^?&\s]+)/
-            ];
-            for (const pattern of patterns) {
-                const match = value.match(pattern);
-                if (match) return match[1];
+                }
+            } catch (error) {
+                console.warn('3D background skipped:', error);
             }
-            return value; // supports direct video IDs too
-        }
 
-        // --- Hero showreel preview interaction ---
-        const heroShowreelPreview = document.getElementById('hero-showreel-preview');
-        if (heroShowreelPreview) {
-            const openHeroTarget = () => {
-                const videoId = getYouTubeId(heroShowreelPreview.getAttribute('data-youtube'));
-                if (videoId && !videoId.includes('PASTE') && iframe && modal) {
-                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                    modal.style.display = 'flex';
-                } else {
-                    document.getElementById('showreel')?.scrollIntoView({ behavior: 'smooth' });
+            // --- CUSTOM CURSOR ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            if (isFinePointer && cursorDot && cursorOutline) {
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({ left: `${posX - 20}px`, top: `${posY - 20}px` }, { duration: 450, fill: 'forwards' });
+                }, { passive: true });
+
+                document.querySelectorAll('a, button, .video-trigger, .tilt, .faq-question, .hero-reel-trigger').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorOutline.style.width = '60px';
+                        cursorOutline.style.height = '60px';
+                        cursorOutline.style.background = 'rgba(215, 38, 38, 0.1)';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursorOutline.style.width = '40px';
+                        cursorOutline.style.height = '40px';
+                        cursorOutline.style.background = 'transparent';
+                    });
+                });
+            }
+
+            // --- 3D TILT EFFECT ---
+            if (isFinePointer) {
+                document.querySelectorAll('.tilt').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const rotateX = (y - centerY) / 18;
+                        const rotateY = (centerX - x) / 18;
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                        card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                        card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+                    });
+                });
+            }
+
+            // --- VIDEO MODAL LOGIC ---
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('video-iframe');
+            const closeBtn = document.querySelector('.close-modal');
+
+            function getYouTubeId(input) {
+                if (!input) return '';
+                const value = input.trim();
+                const patterns = [
+                    /(?:youtube\.com\/watch\?v=)([^&\s]+)/,
+                    /(?:youtu\.be\/)([^?&\s]+)/,
+                    /(?:youtube\.com\/embed\/)([^?&\s]+)/,
+                    /(?:youtube\.com\/shorts\/)([^?&\s]+)/
+                ];
+                for (const pattern of patterns) {
+                    const match = value.match(pattern);
+                    if (match) return match[1];
                 }
-            };
-            heroShowreelPreview.addEventListener('click', openHeroTarget);
-            heroShowreelPreview.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openHeroTarget();
-                }
-            });
-        }
+                return value;
+            }
 
-        // --- PLAY-ON-HOVER PREVIEW FOR WORK CARDS ---
-        // Creates a muted YouTube preview on hover. Click still opens the normal full player modal.
-        document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
-            let hoverTimer;
-            card.addEventListener('mouseenter', () => {
-                const videoId = getYouTubeId(card.getAttribute('data-youtube'));
-                if (!videoId || videoId.includes('PASTE') || card.querySelector('.hover-preview-iframe')) return;
-
-                hoverTimer = setTimeout(() => {
-                    const preview = document.createElement('iframe');
-                    preview.className = 'hover-preview-iframe';
-                    preview.allow = 'autoplay; encrypted-media; picture-in-picture';
-                    preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
-                    card.appendChild(preview);
-                    card.classList.add('is-previewing');
-                }, 180);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                clearTimeout(hoverTimer);
-                card.classList.remove('is-previewing');
-                const preview = card.querySelector('.hover-preview-iframe');
-                if (preview) setTimeout(() => preview.remove(), 180);
-            });
-        });
-
-        triggers.forEach(trigger => {
-            trigger.addEventListener('click', () => {
+            function openVideoFromElement(trigger) {
                 const videoId = getYouTubeId(trigger.getAttribute('data-youtube'));
-                if (!videoId || videoId.includes('PASTE')) return;
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                modal.style.display = 'flex';
-            });
-        });
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-                iframe.src = '';
-            });
-        }
-
-        window.onclick = (event) => {
-            if (modal && event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
+                if (!videoId || videoId.includes('PASTE')) return false;
+                if (iframe && modal) {
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+                return true;
             }
-        };
 
-        // --- PORTFOLIO FILTER ---
-        const tabs = document.querySelectorAll('.filter-tab');
-        const projects = document.querySelectorAll('.work-card');
+            // Hover preview only on desktop so mobile stays fast.
+            if (isFinePointer && window.innerWidth > 900) {
+                document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
+                    let hoverTimer;
+                    card.addEventListener('mouseenter', () => {
+                        const videoId = getYouTubeId(card.getAttribute('data-youtube'));
+                        if (!videoId || videoId.includes('PASTE') || card.querySelector('.hover-preview-iframe')) return;
+                        hoverTimer = setTimeout(() => {
+                            const preview = document.createElement('iframe');
+                            preview.className = 'hover-preview-iframe';
+                            preview.allow = 'autoplay; encrypted-media; picture-in-picture';
+                            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
+                            card.appendChild(preview);
+                            card.classList.add('is-previewing');
+                        }, 220);
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        clearTimeout(hoverTimer);
+                        card.classList.remove('is-previewing');
+                        const preview = card.querySelector('.hover-preview-iframe');
+                        if (preview) setTimeout(() => preview.remove(), 160);
+                    });
+                });
+            }
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+            document.querySelectorAll('.video-trigger').forEach(trigger => {
+                trigger.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openVideoFromElement(trigger);
+                });
+            });
 
-                const filter = tab.getAttribute('data-filter');
-
-                projects.forEach((project, index) => {
-                    const shouldShow = filter === 'all' || project.getAttribute('data-category') === filter;
-                    if (shouldShow) {
-                        project.style.display = '';
-                        project.style.opacity = '0';
-                        project.style.transform = 'translateY(16px)';
-                        setTimeout(() => {
-                            project.style.opacity = '1';
-                            project.style.transform = 'translateY(0)';
-                        }, 45 * index);
-                    } else {
-                        project.style.opacity = '0';
-                        project.style.transform = 'scale(0.96)';
-                        setTimeout(() => project.style.display = 'none', 280);
+            document.querySelectorAll('.hero-reel-trigger').forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    if (!openVideoFromElement(trigger)) document.getElementById('showreel')?.scrollIntoView({ behavior: 'smooth' });
+                });
+                trigger.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (!openVideoFromElement(trigger)) document.getElementById('showreel')?.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             });
-        });
 
-        // --- FAQ ACCORDION ---
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
+            closeBtn?.addEventListener('click', () => {
+                modal.style.display = 'none';
+                iframe.src = '';
+                document.body.style.overflow = '';
             });
-        });
 
-        // --- ANIMATED COUNTERS ---
-        const observerOptions = { threshold: 0.5 };
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
-                    
-                    let current = 0;
-                    const update = () => {
-                        current += increment;
-                        if (current < target) {
-                            counter.innerText = Math.ceil(current);
-                            requestAnimationFrame(update);
-                        } else {
-                            counter.innerText = target;
-                        }
-                    };
-                    update();
-                    counterObserver.unobserve(counter);
+            modal?.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    iframe.src = '';
+                    document.body.style.overflow = '';
                 }
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modal?.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    iframe.src = '';
+                    document.body.style.overflow = '';
+                }
+            });
 
-        // --- PROCESS PROGRESS BAR ---
-        window.addEventListener('scroll', () => {
-            const processSection = document.getElementById('process');
-            const progressLine = document.getElementById('process-progress');
-            if (!processSection || !progressLine) return;
-            const rect = processSection.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                const totalHeight = rect.height;
-                const scrolled = windowHeight - rect.top;
-                const percentage = Math.min(Math.max((scrolled / totalHeight) * 100, 0), 100);
-                progressLine.style.height = `${percentage}%`;
+            // --- PORTFOLIO FILTER ---
+            const tabs = document.querySelectorAll('.filter-tab');
+            const projects = document.querySelectorAll('.work-card');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const filter = tab.getAttribute('data-filter');
+                    projects.forEach((project, index) => {
+                        const shouldShow = filter === 'all' || project.getAttribute('data-category') === filter;
+                        if (shouldShow) {
+                            project.style.display = '';
+                            project.style.opacity = '0';
+                            project.style.transform = 'translateY(16px)';
+                            setTimeout(() => {
+                                project.style.opacity = '1';
+                                project.style.transform = 'translateY(0)';
+                            }, Math.min(45 * index, 360));
+                        } else {
+                            project.style.opacity = '0';
+                            project.style.transform = 'scale(0.96)';
+                            setTimeout(() => project.style.display = 'none', 260);
+                        }
+                    });
+                });
+            });
+
+            // --- FAQ ACCORDION ---
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question?.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                    if (!isActive) item.classList.add('active');
+                });
+            });
+
+            // --- ANIMATED COUNTERS ---
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 1600;
+                        const increment = target / (duration / 16);
+                        let current = 0;
+                        const update = () => {
+                            current += increment;
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current);
+                                requestAnimationFrame(update);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        update();
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.4 });
+            document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+
+            // --- PROCESS PROGRESS BAR ---
+            function updateProcessProgress() {
+                const processSection = document.getElementById('process');
+                const progressLine = document.getElementById('process-progress');
+                if (!processSection || !progressLine) return;
+                const rect = processSection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    const percentage = Math.min(Math.max(((windowHeight - rect.top) / rect.height) * 100, 0), 100);
+                    progressLine.style.height = `${percentage}%`;
+                }
             }
-        });
+            window.addEventListener('scroll', updateProcessProgress, { passive: true });
+            updateProcessProgress();
 
-        // --- FORM HANDLING ---
-        const portfolioForm = document.getElementById('portfolio-form');
-        if (portfolioForm) {
-            portfolioForm.addEventListener('submit', function(e) {
+            // --- FORM HANDLING ---
+            const form = document.getElementById('portfolio-form');
+            form?.addEventListener('submit', function(e) {
                 e.preventDefault();
                 this.style.display = 'none';
                 const success = document.getElementById('form-success');
                 if (success) success.style.display = 'block';
-                // Here you would typically use fetch() to send the data to a service like Formspree
             });
-        }
 
-        // --- GSAP REVEALS ---
-        if (window.gsap && window.ScrollTrigger) {
-            gsap.registerPlugin(ScrollTrigger);
-            gsap.utils.toArray('section').forEach(section => {
-                gsap.from(section, {
-                    opacity: 0,
-                    y: 50,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 80%",
-                        toggleActions: "play none none none"
-                    }
-                });
-            });
-        }
+            // --- GSAP REVEALS ---
+            try {
+                if (window.gsap && window.ScrollTrigger) {
+                    gsap.registerPlugin(ScrollTrigger);
+                    gsap.utils.toArray('section').forEach(section => {
+                        gsap.from(section, {
+                            opacity: 0,
+                            y: 40,
+                            duration: 0.9,
+                            scrollTrigger: {
+                                trigger: section,
+                                start: 'top 84%',
+                                toggleActions: 'play none none none'
+                            }
+                        });
+                    });
+                }
+            } catch (error) {
+                console.warn('GSAP reveal skipped:', error);
+            }
+        });
     </script>
 </body>
 </html>
