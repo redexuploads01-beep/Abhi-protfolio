@@ -383,6 +383,112 @@
         .showreel-container:hover .video-thumbnail { transform: scale(1.05); }
         .showreel-container:hover .big-play-btn { transform: scale(1.15); box-shadow: 0 0 60px var(--primary-red); }
 
+        .showreel-empty {
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background:
+                radial-gradient(circle at 50% 45%, rgba(215,38,38,0.18), transparent 35%),
+                linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.005)),
+                var(--bg-card);
+        }
+
+        .showreel-empty::before {
+            content: '';
+            position: absolute;
+            inset: 24px;
+            border: 1px dashed rgba(215,38,38,0.35);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .empty-showreel-content {
+            max-width: 620px;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .empty-kicker {
+            display: inline-block;
+            color: var(--primary-red);
+            border: 1px solid rgba(215,38,38,0.35);
+            background: rgba(215,38,38,0.08);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .empty-showreel-content h3 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 14px;
+        }
+
+        .empty-showreel-content p {
+            color: var(--text-muted);
+            margin-bottom: 26px;
+        }
+
+        .empty-timeline {
+            position: absolute;
+            left: 8%; right: 8%; bottom: 34px;
+            height: 12px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .empty-timeline span {
+            position: absolute;
+            top: 0; height: 100%;
+            background: var(--primary-red);
+            border-radius: 999px;
+            box-shadow: 0 0 16px rgba(215,38,38,0.28);
+            animation: timeline-slide 2.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes timeline-slide {
+            from { transform: translateX(0); }
+            to { transform: translateX(18px); }
+        }
+
+        .hover-preview-iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            z-index: 1;
+        }
+
+        .work-img-container.is-previewing img {
+            opacity: 0;
+        }
+
+        .work-img-container.is-previewing .hover-preview-iframe {
+            opacity: 1;
+        }
+
+        .work-img-container.is-previewing .work-overlay {
+            background: rgba(0,0,0,0.18);
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .work-img-container.is-previewing .big-play-btn {
+            transform: scale(0.78);
+            opacity: 0.85;
+        }
+
         /* --- SERVICES --- */
         .services-grid {
             display: grid;
@@ -591,6 +697,232 @@
             box-shadow: 0 0 20px var(--red-glow);
         }
 
+
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-photo-card {
+            background: linear-gradient(145deg, rgba(16,16,16,0.98), rgba(8,8,8,0.94));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 35px 80px rgba(0,0,0,0.45);
+            transform-style: preserve-3d;
+        }
+
+        .about-photo-card::before,
+        .about-text-card::before,
+        .about-value-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(215, 38, 38, 0.16) 0%, transparent 58%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .about-photo-card:hover::before,
+        .about-text-card:hover::before,
+        .about-value-card:hover::before { opacity: 1; }
+
+        .about-photo-frame {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(215,38,38,0.35);
+            box-shadow: 0 0 35px rgba(215,38,38,0.16);
+        }
+
+        .about-photo-frame img {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.04) contrast(1.05);
+        }
+
+        .about-photo-badge {
+            position: absolute;
+            left: 18px;
+            bottom: 18px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(5,5,5,0.75);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: var(--highlight);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .about-mini-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .about-mini-stat {
+            background: rgba(255,255,255,0.035);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 12px;
+            text-align: center;
+        }
+
+        .about-mini-stat b {
+            display: block;
+            color: var(--primary-red);
+            font-family: var(--font-head);
+            font-size: 1.25rem;
+        }
+
+        .about-mini-stat span {
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .about-text-card {
+            background: rgba(16,16,16,0.72);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 46px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-red);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .about-kicker::before {
+            content: '';
+            width: 26px;
+            height: 2px;
+            background: var(--primary-red);
+            box-shadow: 0 0 12px var(--primary-red);
+        }
+
+        .about-intro {
+            font-size: clamp(1.55rem, 2.4vw, 2.45rem);
+            line-height: 1.18;
+            margin-bottom: 24px;
+            color: var(--text-white);
+            font-family: var(--font-head);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .about-text-card p {
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        .about-focus-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin: 26px 0 30px;
+            list-style: none;
+        }
+
+        .about-focus-list li {
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            color: var(--text-white);
+            font-size: 0.88rem;
+        }
+
+        .about-focus-list li::before {
+            content: '✦';
+            color: var(--primary-red);
+            margin-right: 9px;
+        }
+
+        .about-values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-top: 34px;
+        }
+
+        .about-value-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: 0.35s ease;
+            transform-style: preserve-3d;
+        }
+
+        .about-value-card:hover {
+            border-color: rgba(215,38,38,0.55);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.34), 0 0 28px rgba(215,38,38,0.15);
+        }
+
+        .about-value-card .value-num {
+            color: rgba(255,255,255,0.08);
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 2.1rem;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .about-value-card h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .about-value-card p {
+            color: var(--text-muted);
+            font-size: 0.86rem;
+        }
+
+        .about-tools-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .about-tool-pill {
+            border: 1px solid rgba(215,38,38,0.28);
+            background: rgba(215,38,38,0.08);
+            color: var(--highlight);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
         /* --- FAQ --- */
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { border-bottom: 1px solid var(--border); }
@@ -690,6 +1022,10 @@
             .editor-ui { width: 100%; max-width: 500px; transform: none; }
             .contact-grid { grid-template-columns: 1fr; }
             .case-card { grid-template-columns: 1fr; }
+
+            .about-grid { grid-template-columns: 1fr; gap: 42px; }
+            .about-photo-card { max-width: 520px; margin: 0 auto; }
+            .about-values-grid { grid-template-columns: repeat(2, 1fr); }
             .nav-links { display: none; }
         }
 
@@ -698,6 +1034,10 @@
             .hero-content h1 { font-size: 3rem; }
             .form-row { grid-template-columns: 1fr; }
             .portfolio-grid { grid-template-columns: 1fr; }
+            .about-text-card { padding: 30px; }
+            .about-focus-list { grid-template-columns: 1fr; }
+            .about-values-grid { grid-template-columns: 1fr; }
+            .about-mini-stats { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -711,7 +1051,7 @@
     <nav>
         <div class="nav-brand">
             <!-- Replace this src with your profile image -->
-            <img src="https://via.placeholder.com/100" alt="Abhi" class="nav-profile-img">
+            <img src="input_file_0.png" alt="Abhi" class="nav-profile-img">
             <div class="nav-brand-text">
                 <h4>ABHI</h4>
                 <span>Motion Designer / Video Editor</span>
@@ -723,6 +1063,7 @@
             <a href="#services">Services</a>
             <a href="#work">Work</a>
             <a href="#process">Process</a>
+            <a href="#about">About</a>
             <a href="#contact">Contact</a>
         </div>
         <div class="nav-btns">
@@ -746,7 +1087,7 @@
                     <p>Videos Edited</p>
                 </div>
                 <div class="stat-item">
-                    <h3><span class="counter" data-target="2">0</span>+</h3>
+                    <h3>2.5+</h3>
                     <p>Years Exp.</p>
                 </div>
                 <div class="stat-item">
@@ -756,7 +1097,8 @@
             </div>
         </div>
         <div class="hero-visual">
-            <div class="editor-ui magnetic video-trigger" data-youtube="https://youtu.be/5RdRNtwQ8ig">
+            <!-- Paste your future showreel link in data-youtube and add video-trigger class here when ready -->
+            <div class="editor-ui magnetic" data-youtube="PASTE_SHOWREEL_LINK_HERE">
                 <div class="ui-header">
                     <div class="ui-dot red"></div>
                     <div class="ui-dot"></div>
@@ -798,11 +1140,19 @@
             <p>A quick look at my editing style, pacing, motion graphics, and visual storytelling.</p>
         </div>
         <div class="container">
-            <!-- EDIT YOUR SHOWREEL LINK HERE: Change the data-youtube ID -->
-            <div class="showreel-container video-trigger" data-youtube="https://youtu.be/5RdRNtwQ8ig">
-                <img src="https://img.youtube.com/vi/5RdRNtwQ8ig/maxresdefault.jpg" alt="Showreel Thumbnail" class="video-thumbnail">
-                <div class="play-overlay">
-                    <div class="big-play-btn">▶</div>
+            <!-- SHOWREEL PLACEHOLDER: replace this empty block with your final showreel later.
+                 To activate it later, add class="showreel-container video-trigger" and set data-youtube="YOUR_SHOWREEL_LINK". -->
+            <div class="showreel-container showreel-empty" data-youtube="PASTE_SHOWREEL_LINK_HERE">
+                <div class="empty-showreel-content">
+                    <span class="empty-kicker">Showreel Coming Soon</span>
+                    <h3>Your main showreel will live here.</h3>
+                    <p>I’ll add a dedicated reel once the final compilation is ready. For now, explore the selected work below.</p>
+                    <a href="#work" class="btn btn-primary">View Selected Work</a>
+                </div>
+                <div class="empty-timeline">
+                    <span style="width: 34%; left: 0;"></span>
+                    <span style="width: 22%; left: 38%; background: rgba(243,231,198,0.7);"></span>
+                    <span style="width: 28%; left: 66%; background: rgba(215,38,38,0.55);"></span>
                 </div>
             </div>
         </div>
@@ -1122,6 +1472,83 @@
         </div>
     </section>
 
+
+
+    <section id="about">
+        <div class="section-header">
+            <h2>About <span class="red-text">Me</span></h2>
+            <p>The editor behind the cuts, pacing, motion graphics, and final polish.</p>
+        </div>
+
+        <div class="about-grid container">
+            <div class="about-photo-card tilt">
+                <div class="about-photo-frame">
+                    <!-- Replace this image src with your profile photo if needed. Keep input_file_0.png in the same GitHub repo folder as index.html. -->
+                    <img src="input_file_0.png" alt="Abhi aka Redex">
+                    <div class="about-photo-badge">Abhi aka Redex</div>
+                </div>
+                <div class="about-mini-stats">
+                    <div class="about-mini-stat"><b>2.5+</b><span>Years</span></div>
+                    <div class="about-mini-stat"><b>50+</b><span>Videos</span></div>
+                    <div class="about-mini-stat"><b>Adobe</b><span>Workflow</span></div>
+                </div>
+            </div>
+
+            <div class="about-text-card tilt">
+                <span class="about-kicker">Motion Designer / Video Editor</span>
+                <div class="about-intro">
+                    I am Abhi aka <span class="red-text">Redex</span>, and I create clean, engaging videos with editing, motion graphics, pacing, sound design, and visual storytelling.
+                </div>
+                <p>
+                    I have been in this field for the past <strong>2.5+ years</strong>, working across long-form YouTube videos, short-form reels, brand ads, talking-head edits, faceless content, and motion-heavy visuals. My focus is not just to make a video look good, but to make it easier to watch, sharper in flow, and stronger in retention.
+                </p>
+                <p>
+                    I think about every edit like a viewer: where the hook should hit, where the pacing slows down, where a zoom or cut can bring energy, where motion graphics can explain the idea better, and where sound design can make the moment feel alive.
+                </p>
+
+                <ul class="about-focus-list">
+                    <li>YouTube long-form editing</li>
+                    <li>Instagram Reels / Shorts</li>
+                    <li>Brand ads and product videos</li>
+                    <li>Motion graphics and typography</li>
+                    <li>Sound design and pacing</li>
+                    <li>Retention-focused storytelling</li>
+                </ul>
+
+                <div class="about-tools-row">
+                    <span class="about-tool-pill">Adobe Premiere Pro</span>
+                    <span class="about-tool-pill">Adobe After Effects</span>
+                    <span class="about-tool-pill">Adobe Photoshop</span>
+                    <span class="about-tool-pill">Motion Graphics</span>
+                    <span class="about-tool-pill">Sound Design</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-values-grid container">
+            <div class="about-value-card tilt">
+                <div class="value-num">01</div>
+                <h3>Retention-first editing</h3>
+                <p>I edit with pacing, attention, structure, and viewer drop-off in mind.</p>
+            </div>
+            <div class="about-value-card tilt">
+                <div class="value-num">02</div>
+                <h3>Clean motion design</h3>
+                <p>I use typography, callouts, UI motion, and visual polish to make videos feel premium.</p>
+            </div>
+            <div class="about-value-card tilt">
+                <div class="value-num">03</div>
+                <h3>Story-driven visuals</h3>
+                <p>I focus on clarity and flow so the message feels simple, sharp, and easy to follow.</p>
+            </div>
+            <div class="about-value-card tilt">
+                <div class="value-num">04</div>
+                <h3>Reliable workflow</h3>
+                <p>I keep the process clear with communication, feedback, revisions, and final delivery.</p>
+            </div>
+        </div>
+    </section>
+
     <section id="faq">
         <div class="section-header">
             <h2>FAQ</h2>
@@ -1161,355 +1588,4 @@
                         <span class="text-muted">redex1007@gmail.com</span>
                     </div>
                 </a>
-                <a href="https://www.instagram.com/redex.editz/" target="_blank" class="contact-card">
-                    <i>📸</i>
-                    <div>
-                        <b>Instagram</b><br>
-                        <span class="text-muted">@redex.editz</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="contact-form">
-                <form id="portfolio-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="john@example.com" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Project Type</label>
-                            <select>
-                                <option>YouTube Long-form</option>
-                                <option>Short-form / Reels</option>
-                                <option>Brand Ad</option>
-                                <option>Motion Graphics</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Budget Range</label>
-                            <select>
-                                <option>₹10k - ₹25k</option>
-                                <option>₹25k - ₹50k</option>
-                                <option>₹50k+</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea rows="5" placeholder="Tell me about your project..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Work Request</button>
-                </form>
-                <div id="form-success" style="display:none; text-align:center; padding: 20px; color: var(--primary-red); font-weight: bold;">
-                    Message noted! For a faster response, email me directly at redex1007@gmail.com.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-logo">
-            <img src="https://via.placeholder.com/50" alt="Abhi" style="border-radius: 50%; border: 1px solid var(--primary-red);">
-            <h3>ABHI</h3>
-        </div>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#work">Portfolio</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Hire Me</a>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 ABHI | Built for creators who deserve better execution.</p>
-        </div>
-    </footer>
-
-    <!-- MODAL FOR VIDEOS -->
-    <div id="video-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <iframe id="video-iframe" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <script>
-        // --- THREE.JS BACKGROUND ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-        // Create abstract timeline strips
-        const geometries = [];
-        const material = new THREE.MeshBasicMaterial({ color: 0xD72626, wireframe: true, transparent: true, opacity: 0.1 });
-        
-        for(let i=0; i<15; i++) {
-            const geometry = new THREE.PlaneGeometry(Math.random() * 5 + 2, 0.2);
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 10 - 15);
-            mesh.rotation.z = Math.random() * Math.PI;
-            scene.add(mesh);
-            geometries.push(mesh);
-        }
-
-        // Particles
-        const partGeo = new THREE.BufferGeometry();
-        const partCount = 500;
-        const posArray = new Float32Array(partCount * 3);
-        for(let i=0; i<partCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 30;
-        }
-        partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const partMat = new THREE.PointsMaterial({ size: 0.02, color: 0xD72626 });
-        const particles = new THREE.Points(partGeo, partMat);
-        scene.add(particles);
-
-        camera.position.z = 5;
-
-        // Mouse Parallax for Background
-        let mouseX = 0;
-        let mouseY = 0;
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) - 0.5;
-            mouseY = (e.clientY / window.innerHeight) - 0.5;
-        });
-
-        function animate() {
-            requestAnimationFrame(animate);
-            geometries.forEach((g, i) => {
-                g.position.x += Math.sin(Date.now() * 0.001 + i) * 0.005;
-                g.rotation.y += 0.002;
-            });
-            particles.rotation.y += 0.001;
-            
-            camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // --- CUSTOM CURSOR ---
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorOutline = document.getElementById('cursor-outline');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            cursorOutline.animate({
-                left: `${posX - 20}px`,
-                top: `${posY - 20}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-
-        // Hover Effect for Cursor
-        const interactiveElements = document.querySelectorAll('a, button, .video-trigger, .tilt, .faq-question');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.style.width = '60px';
-                cursorOutline.style.height = '60px';
-                cursorOutline.style.background = 'rgba(215, 38, 38, 0.1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.background = 'transparent';
-            });
-        });
-
-        // --- 3D TILT EFFECT ---
-        const tilts = document.querySelectorAll('.tilt');
-        tilts.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-                
-                // Set mouse position for the glow effect
-                card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-                card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-            });
-        });
-
-        // --- VIDEO MODAL LOGIC ---
-        const modal = document.getElementById('video-modal');
-        const iframe = document.getElementById('video-iframe');
-        const triggers = document.querySelectorAll('.video-trigger');
-        const closeBtn = document.querySelector('.close-modal');
-
-        function getYouTubeId(input) {
-            if (!input) return '';
-            const value = input.trim();
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=)([^&\s]+)/,
-                /(?:youtu\.be\/)([^?&\s]+)/,
-                /(?:youtube\.com\/embed\/)([^?&\s]+)/
-            ];
-            for (const pattern of patterns) {
-                const match = value.match(pattern);
-                if (match) return match[1];
-            }
-            return value; // supports direct video IDs too
-        }
-
-        triggers.forEach(trigger => {
-            trigger.addEventListener('click', () => {
-                const videoId = getYouTubeId(trigger.getAttribute('data-youtube'));
-                if (!videoId || videoId.includes('PASTE')) return;
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                modal.style.display = 'flex';
-            });
-        });
-
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            iframe.src = '';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-                iframe.src = '';
-            }
-        };
-
-        // --- PORTFOLIO FILTER ---
-        const tabs = document.querySelectorAll('.filter-tab');
-        const projects = document.querySelectorAll('.work-card');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                const filter = tab.getAttribute('data-filter');
-
-                projects.forEach((project, index) => {
-                    const shouldShow = filter === 'all' || project.getAttribute('data-category') === filter;
-                    if (shouldShow) {
-                        project.style.display = '';
-                        project.style.opacity = '0';
-                        project.style.transform = 'translateY(16px)';
-                        setTimeout(() => {
-                            project.style.opacity = '1';
-                            project.style.transform = 'translateY(0)';
-                        }, 45 * index);
-                    } else {
-                        project.style.opacity = '0';
-                        project.style.transform = 'scale(0.96)';
-                        setTimeout(() => project.style.display = 'none', 280);
-                    }
-                });
-            });
-        });
-
-        // --- FAQ ACCORDION ---
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                faqItems.forEach(i => i.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
-            });
-        });
-
-        // --- ANIMATED COUNTERS ---
-        const observerOptions = { threshold: 0.5 };
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
-                    
-                    let current = 0;
-                    const update = () => {
-                        current += increment;
-                        if (current < target) {
-                            counter.innerText = Math.ceil(current);
-                            requestAnimationFrame(update);
-                        } else {
-                            counter.innerText = target;
-                        }
-                    };
-                    update();
-                    counterObserver.unobserve(counter);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
-
-        // --- PROCESS PROGRESS BAR ---
-        window.addEventListener('scroll', () => {
-            const processSection = document.getElementById('process');
-            const progressLine = document.getElementById('process-progress');
-            const rect = processSection.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                const totalHeight = rect.height;
-                const scrolled = windowHeight - rect.top;
-                const percentage = Math.min(Math.max((scrolled / totalHeight) * 100, 0), 100);
-                progressLine.style.height = `${percentage}%`;
-            }
-        });
-
-        // --- FORM HANDLING ---
-        document.getElementById('portfolio-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            this.style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
-            // Here you would typically use fetch() to send the data to a service like Formspree
-        });
-
-        // --- GSAP REVEALS ---
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('section').forEach(section => {
-            gsap.from(section, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none none"
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                <a href="https://www.instagra
