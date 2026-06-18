@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhi | Motion Designer & Video Editor</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: { DEFAULT: '#050505', card: '#101010', cardHover: '#141414' },
+                        primary: { DEFAULT: '#D72626', deep: '#8F1616', glow: 'rgba(215, 38, 38, 0.25)' },
+                        text: { DEFAULT: '#F5F2E8', muted: '#A8A8A8' },
+                        highlight: '#F3E7C6',
+                    },
+                    fontFamily: { heading: ['Sora', 'sans-serif'], body: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { scroll-behavior: smooth; }
+        body { background-color: #050505; color: #F5F2E8; overflow-x: hidden; }
+        
+        /* 3D Interactive Elements */
+        .tilt-card { transition: transform 0.15s ease-out; transform-style: preserve-3d; perspective: 1000px; }
+        .glass { background: rgba(16, 16, 16, 0.6); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+        
+        .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--x) var(--y), rgba(215,38,38,0.15) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+        .glass:hover .glare { opacity: 1; }
+
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
+        
+        .red-glow-border { border: 2px solid #D72626; box-shadow: 0 0 20px rgba(215, 38, 38, 0.4); }
+        .red-glow-text { text-shadow: 0 0 15px rgba(215, 38, 38, 0.6); }
+        
+        .section-reveal { opacity: 0; transform: translateY(40px); }
+        
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #D72626; border-radius: 10px; }
+
+        @keyframes infinite-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .animate-infinite-scroll { animation: infinite-scroll 40s linear infinite; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-white">
+
+    <div id="canvas-container"></div>
+
+    <!-- 1. NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 h-20 flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- LOGO: YOUR IMAGE -->
+                <img src="input_file_0.png" alt="Abhi" class="w-10 h-10 rounded-full red-glow-border object-cover">
+                <span class="font-heading font-bold text-xl tracking-tighter">Abhi</span>
+            </div>
+            <div class="hidden lg:flex gap-8 text-[10px] font-bold uppercase tracking-[0.25em] text-text-muted">
+                <a href="#home" class="hover:text-primary transition-colors">Home</a>
+                <a href="#work" class="hover:text-primary transition-colors">Work</a>
+                <a href="#services" class="hover:text-primary transition-colors">Services</a>
+                <a href="#process" class="hover:text-primary transition-colors">Process</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="#contact" class="bg-primary px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20">Hire Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <section id="home" class="relative pt-48 pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div class="hero-content section-reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Motion Designer / Video Editor</span>
+                </div>
+                <h1 class="font-heading text-5xl md:text-7xl font-bold leading-[1.1] mb-6">
+                    Turning raw footage into <span class="text-primary red-glow-text">premium visual stories.</span>
+                </h1>
+                <p class="text-lg text-text-muted mb-10 max-w-lg leading-relaxed">
+                    I help creators and brands dominate attention with high-retention editing, cinematic motion graphics, and sound design.
+                </p>
+                <div class="flex flex-wrap gap-4 mb-12">
+                    <button class="bg-primary px-8 py-4 rounded-xl font-bold flex items-center gap-3 shadow-xl shadow-primary/20 hover:-translate-y-1 transition-all">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i> Watch Showreel
+                    </button>
+                    <button class="glass px-8 py-4 rounded-xl font-bold hover:bg-white/5 transition-all">Let’s Work Together</button>
+                </div>
+                <div class="flex gap-10 border-t border-white/5 pt-8">
+                    <div>
+                        <p class="text-2xl font-heading font-bold text-highlight">50+</p>
+                        <p class="text-[10px] uppercase tracking-widest text-text-muted">Videos Produced</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-heading font-bold text-highlight">2+</p>
+                        <p class="text-[10px] uppercase tracking-widest text-text-muted">Years Expertise</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hero Card -->
+            <div class="relative group section-reveal tilt-card">
+                <div class="absolute -inset-2 bg-primary/10 blur-3xl rounded-full"></div>
+                <div class="relative glass aspect-video rounded-3xl overflow-hidden flex items-center justify-center border border-white/10 shadow-2xl">
+                    <div class="glare"></div>
+                    <div class="text-center group-hover:scale-105 transition-transform duration-700" style="transform: translateZ(60px);">
+                        <div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-primary/40 group-hover:rotate-[360deg] transition-all duration-1000">
+                            <i data-lucide="play" fill="white" class="ml-1 w-8 h-8"></i>
+                        </div>
+                        <p class="font-heading font-bold text-xl uppercase tracking-[0.2em]">Showreel 2026</p>
+                        <p class="text-[10px] text-text-muted mt-2 uppercase tracking-widest font-mono">Retention // Motion // Sound</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. TOOLS STRIP -->
+    <div class="py-12 border-y border-white/5 bg-bg-card/20 overflow-hidden whitespace-nowrap">
+        <div class="flex gap-16 animate-infinite-scroll">
+            <div class="flex gap-16 text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted opacity-40">
+                <span>Adobe Premiere Pro</span> <span>Adobe After Effects</span> <span>Adobe Photoshop</span> <span>Motion Graphics</span> <span>Sound Design</span> <span>YouTube Specialist</span> <span>Retention Editing</span>
+            </div>
+            <div class="flex gap-16 text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted opacity-40">
+                <span>Adobe Premiere Pro</span> <span>Adobe After Effects</span> <span>Adobe Photoshop</span> <span>Motion Graphics</span> <span>Sound Design</span> <span>YouTube Specialist</span> <span>Retention Editing</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. SERVICES -->
+    <section id="services" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="mb-16 section-reveal">
+            <h2 class="font-heading text-4xl font-bold mb-4">Core Expertise</h2>
+            <div class="w-20 h-1 bg-primary"></div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="tilt-card h-full">
+                <div class="p-8 glass rounded-3xl hover:bg-bg-cardHover group transition-all h-full">
+                    <div class="glare"></div>
+                    <div class="text-primary mb-8"><i data-lucide="youtube" class="w-12 h-12"></i></div>
+                    <h3 class="font-heading font-bold text-lg mb-4">YouTube Long-form</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-8">Retention-based cuts, cinematic pacing, and structured storytelling for creators.</p>
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest">01 / Focus</span>
+                </div>
+            </div>
+            <div class="tilt-card h-full">
+                <div class="p-8 glass rounded-3xl hover:bg-bg-cardHover group transition-all h-full">
+                    <div class="glare"></div>
+                    <div class="text-primary mb-8"><i data-lucide="zap" class="w-12 h-12"></i></div>
+                    <h3 class="font-heading font-bold text-lg mb-4">Short-form Reels</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-8">Vertical edits with high-energy hooks and dynamic captions for maximum reach.</p>
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest">02 / Virality</span>
+                </div>
+            </div>
+            <div class="tilt-card h-full">
+                <div class="p-8 glass rounded-3xl hover:bg-bg-cardHover group transition-all h-full">
+                    <div class="glare"></div>
+                    <div class="text-primary mb-8"><i data-lucide="layers" class="w-12 h-12"></i></div>
+                    <h3 class="font-heading font-bold text-lg mb-4">Motion Graphics</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-8">Kinetic typography and UI animations that add a high-end feel to your brand.</p>
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest">03 / Visuals</span>
+                </div>
+            </div>
+            <div class="tilt-card h-full">
+                <div class="p-8 glass rounded-3xl hover:bg-bg-cardHover group transition-all h-full">
+                    <div class="glare"></div>
+                    <div class="text-primary mb-8"><i data-lucide="monitor" class="w-12 h-12"></i></div>
+                    <h3 class="font-heading font-bold text-lg mb-4">SaaS / Brand</h3>
+                    <p class="text-sm text-text-muted leading-relaxed mb-8">Product explainers and walkthroughs designed to communicate value clearly.</p>
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest">04 / Growth</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PORTFOLIO -->
+    <section id="work" class="py-32 px-6 bg-bg-card/20 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20 section-reveal text-center">
+                <h2 class="font-heading text-4xl font-bold mb-4">Selected Work</h2>
+                <p class="text-text-muted uppercase tracking-widest text-[10px]">Filtering high-performance results</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="tilt-card group">
+                    <div class="relative glass rounded-3xl overflow-hidden h-full border border-white/5">
+                        <div class="glare"></div>
+                        <div class="aspect-video bg-white/5 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex gap-2 mb-4">
+                                <span class="text-[9px] font-bold uppercase px-2 py-1 bg-white/5 rounded">Premiere Pro</span>
+                                <span class="text-[9px] font-bold uppercase px-2 py-1 bg-primary/10 text-primary rounded">Long-form</span>
+                            </div>
+                            <h3 class="font-heading font-bold text-xl mb-2">Creator Content Edit</h3>
+                            <p class="text-sm text-text-muted mb-6">Optimized for average view duration on educational content.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="tilt-card group">
+                    <div class="relative glass rounded-3xl overflow-hidden h-full border border-white/5">
+                        <div class="glare"></div>
+                        <div class="aspect-video bg-white/5 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex gap-2 mb-4"><span class="text-[9px] font-bold uppercase px-2 py-1 bg-white/5 rounded">After Effects</span></div>
+                            <h3 class="font-heading font-bold text-xl mb-2">SaaS UI Motion</h3>
+                            <p class="text-sm text-text-muted mb-6">Premium app walkthrough for a fintech startup.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="tilt-card group">
+                    <div class="relative glass rounded-3xl overflow-hidden h-full border border-white/5">
+                        <div class="glare"></div>
+                        <div class="aspect-video bg-white/5 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <i data-lucide="play-circle" class="w-12 h-12 text-white"></i>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex gap-2 mb-4"><span class="text-[9px] font-bold uppercase px-2 py-1 bg-primary/10 text-primary rounded">Short-form</span></div>
+                            <h3 class="font-heading font-bold text-xl mb-2">Viral Reels Pack</h3>
+                            <p class="text-sm text-text-muted mb-6">High-energy vertical storytelling for a personal brand.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. CONTACT -->
+    <section id="contact" class="py-32 px-6 max-w-7xl mx-auto relative">
+        <div class="absolute -top-24 right-0 w-64 h-64 bg-primary/5 blur-[120px] rounded-full"></div>
+        <div class="tilt-card w-full h-full">
+            <div class="glass rounded-[3rem] overflow-hidden grid lg:grid-cols-2 section-reveal border-white/10 shadow-2xl">
+                <div class="glare"></div>
+                <div class="p-12 lg:p-20 bg-primary/5 border-r border-white/5">
+                    <h2 class="font-heading text-5xl font-bold mb-8 leading-tight">Let's build your <span class="text-primary">visual style.</span></h2>
+                    <p class="text-text-muted mb-12 text-lg">Tell me about your project, and let’s turn it into a high-performance video.</p>
+                    <div class="flex items-center gap-4 group cursor-pointer">
+                        <div class="w-12 h-12 rounded-full glass flex items-center justify-center group-hover:bg-primary transition-all"><i data-lucide="mail" class="w-5 h-5"></i></div>
+                        <p class="font-bold">hello@abhi.editor</p>
+                    </div>
+                </div>
+                <div class="p-12 lg:p-20 bg-bg-card">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="Name" class="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl outline-none focus:border-primary transition-all">
+                            <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl outline-none focus:border-primary transition-all">
+                        </div>
+                        <select class="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl outline-none focus:border-primary appearance-none text-text-muted">
+                            <option>YouTube Long-form</option>
+                            <option>Short-form Reels</option>
+                            <option>Motion Graphics</option>
+                        </select>
+                        <textarea placeholder="Tell me about your project..." rows="4" class="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl outline-none focus:border-primary transition-all resize-none"></textarea>
+                        <button class="w-full bg-primary py-5 rounded-2xl font-bold uppercase tracking-widest hover:bg-primary-deep shadow-xl shadow-primary/20 transition-all">Send Work Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-20 px-6 border-t border-white/5 bg-bg-card/30">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                    <img src="input_file_0.png" alt="Abhi" class="w-8 h-8 rounded-full red-glow-border object-cover">
+                    <span class="font-heading font-bold text-xl tracking-tighter">Abhi</span>
+                </div>
+                <p class="text-[10px] uppercase tracking-[0.4em] text-text-muted">Motion Designer / Video Editor</p>
+            </div>
+            <div class="flex gap-12 text-[10px] font-bold uppercase tracking-[0.25em] text-text-muted">
+                <a href="#work" class="hover:text-primary transition-all">Work</a>
+                <a href="#services" class="hover:text-primary transition-all">Services</a>
+                <a href="#contact" class="hover:text-primary transition-all">Instagram</a>
+            </div>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-text-muted text-center md:text-right">Built for creators who deserve better execution.</p>
+        </div>
+    </footer>
+
+    <!-- Three.js (Enhanced Interactive Background) -->
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
+
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Lights
+        const light = new THREE.PointLight(0xD72626, 1.5, 50);
+        light.position.set(5, 5, 5);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+        // 3D Objects: Floating Timeline Panels
+        const panels = [];
+        const panelGeom = new THREE.BoxGeometry(3, 0.02, 1.5);
+        for (let i = 0; i < 25; i++) {
+            const mat = new THREE.MeshStandardMaterial({ 
+                color: i % 4 === 0 ? 0xD72626 : 0x222222, 
+                transparent: true, 
+                opacity: 0.15, 
+                wireframe: i % 3 === 0 
+            });
+            const panel = new THREE.Mesh(panelGeom, mat);
+            panel.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 15);
+            panel.rotation.set(Math.random(), Math.random(), 0);
+            scene.add(panel);
+            panels.push(panel);
+        }
+
+        // Particle System
+        const partGeom = new THREE.BufferGeometry();
+        const pCount = 800;
+        const pos = new Float32Array(pCount * 3);
+        for(let i=0; i<pCount*3; i++) { pos[i] = (Math.random()-0.5)*40; }
+        partGeom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const pMat = new THREE.PointsMaterial({ size: 0.015, color: 0xD72626, transparent: true, opacity: 0.4 });
+        const particles = new THREE.Points(partGeom, pMat);
+        scene.add(particles);
+
+        camera.position.z = 15;
+
+        // Mouse Parallax Logic
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - window.innerWidth / 2) / 200;
+            mouseY = (e.clientY - window.innerHeight / 2) / 200;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Smooth Camera Follow
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+            camera.position.x = targetX;
+            camera.position.y = -targetY;
+            camera.lookAt(scene.position);
+
+            // Animate Panels
+            panels.forEach((p, i) => {
+                p.rotation.y += 0.001 * (i % 2 === 0 ? 1 : -1);
+                p.position.y += Math.sin(Date.now() * 0.0005 + i) * 0.005;
+            });
+            
+            particles.rotation.y += 0.0003;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+    <!-- UI Interaction Scripts -->
+    <script>
+        lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal Animations
+        document.querySelectorAll('.section-reveal').forEach((el) => {
+            gsap.to(el, { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+        });
+
+        // 3D Tilt Script
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotX = ((y - centerY) / centerY) * -10;
+                const rotY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+                const glass = card.querySelector('.glass');
+                if (glass) { glass.style.setProperty('--x', `${x}px`); glass.style.setProperty('--y', `${y}px`); }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+    </script>
+</body>
+</html>
