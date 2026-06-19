@@ -153,8 +153,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: inherit;
-            text-decoration: none;
         }
 
         .nav-profile-img {
@@ -526,69 +524,14 @@
         }
 
         .work-img-container.is-previewing .work-overlay {
-            background: transparent;
-            opacity: 0 !important;
-            pointer-events: none;
+            background: rgba(0,0,0,0.18);
+            opacity: 1;
             z-index: 2;
         }
 
         .work-img-container.is-previewing .big-play-btn {
-            transform: scale(0.55);
-            opacity: 0;
-        }
-
-        .case-visual.is-previewing img {
-            opacity: 0;
-        }
-
-        .case-visual.is-previewing .hover-preview-iframe {
-            opacity: 1;
-        }
-
-        .case-visual.is-previewing .case-play-overlay {
-            background: transparent;
-            opacity: 0 !important;
-            pointer-events: none;
-        }
-
-        .case-visual.is-previewing .case-play-btn {
-            transform: scale(0.55);
-            opacity: 0;
-        }
-
-
-        /* --- BREAKDOWN HOVER PREVIEW FIX --- */
-        .case-visual.video-trigger {
-            cursor: pointer;
-        }
-
-        .case-visual .hover-preview-iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 2;
-            transition: opacity 0.25s ease;
-        }
-
-        .case-visual.is-previewing img {
-            opacity: 0;
-        }
-
-        .case-visual.is-previewing .hover-preview-iframe {
-            opacity: 1;
-        }
-
-        .case-visual.is-previewing .case-play-overlay {
-            opacity: 0 !important;
-            pointer-events: none;
-        }
-
-        .case-visual.is-previewing .case-timeline-preview {
-            opacity: 0;
+            transform: scale(0.78);
+            opacity: 0.85;
         }
 
         /* --- SERVICES --- */
@@ -727,7 +670,6 @@
             transition: 0.3s;
         }
         .work-card:hover .work-overlay { opacity: 1; }
-        .work-card:hover .work-img-container.video-trigger .work-overlay { opacity: 0; pointer-events: none; }
 
         /* --- CASE STUDIES --- */
         .case-studies-grid {
@@ -816,11 +758,7 @@
             transition: background 0.35s ease;
         }
 
-        .case-card:hover .case-play-overlay {
-            background: transparent;
-            opacity: 0;
-            pointer-events: none;
-        }
+        .case-card:hover .case-play-overlay { background: rgba(215,38,38,0.16); }
 
         .case-play-btn {
             width: 72px;
@@ -1518,44 +1456,6 @@
             }
         }
 
-
-        /* --- PROJECT VIDEO PLAY BUTTON + HOVER PREVIEW --- */
-        /* Show a clean play button on project cards before hover/tap */
-        .work-img-container.video-trigger .work-overlay {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: none;
-            background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.28));
-            z-index: 3;
-        }
-
-        .work-img-container.video-trigger .big-play-btn {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1);
-        }
-
-        /* Hide the website play button once hover preview starts */
-        .work-img-container.video-trigger:hover .work-overlay,
-        .work-img-container.video-trigger.is-previewing .work-overlay {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            background: transparent !important;
-        }
-
-        .work-img-container.video-trigger:hover .big-play-btn,
-        .work-img-container.video-trigger.is-previewing .big-play-btn {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            transform: scale(0.45) !important;
-            pointer-events: none !important;
-        }
-
-        .work-img-container.video-trigger.is-previewing::after {
-            opacity: 0 !important;
-        }
-
     </style>
 </head>
 <body>
@@ -1566,14 +1466,14 @@
     <div id="canvas-container"></div>
 
     <nav>
-        <a href="#home" class="nav-brand" aria-label="Go to home section">
+        <div class="nav-brand">
             <!-- Replace this src with your profile image -->
             <img src="input_file_0.png" alt="Abhi" class="nav-profile-img">
             <div class="nav-brand-text">
                 <h4>ABHI</h4>
                 <span>Motion Designer / Video Editor</span>
             </div>
-        </a>
+        </div>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#showreel">Showreel</a>
@@ -1734,8 +1634,8 @@
             <!-- Thumbnail tip: replace each <img src="..."> with your own 16:9 long-form/brand thumbnail or 9:16 short-form thumbnail for best results. -->
 
             <div class="work-card" data-category="long">
-                <div class="work-img-container video-trigger" data-youtube="https://youtu.be/YAHxPgKXIFw">
-                    <img src="https://img.youtube.com/vi/YAHxPgKXIFw/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/YAHxPgKXIFw/hqdefault.jpg'" alt="Problem With Fitness Tier Lists">
+                <div class="work-img-container video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">
+                    <img src="https://img.youtube.com/vi/4s-38MIhaKg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/4s-38MIhaKg/hqdefault.jpg'" alt="Problem With Fitness Tier Lists">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
                 </div>
                 <div class="work-info">
@@ -1946,7 +1846,7 @@
                         </ul>
                     </div>
                     <div class="case-cta">
-                        <span class="case-note">Hover to preview. Click to watch with sound.</span>
+                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
                         <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">Watch Breakdown</button>
                     </div>
                 </div>
@@ -1986,7 +1886,7 @@
                         </ul>
                     </div>
                     <div class="case-cta">
-                        <span class="case-note">Hover to preview. Click to watch with sound.</span>
+                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
                         <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">Watch Breakdown</button>
                     </div>
                 </div>
@@ -2224,22 +2124,21 @@
             </div>
 
             <div class="contact-form">
-                <form id="portfolio-form" action="https://formspree.io/f/xnjyevwo" method="POST">
-                    <input type="hidden" name="_subject" value="New portfolio work request from Abhi site">
+                <form id="portfolio-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" name="name" placeholder="John Doe" required>
+                            <input type="text" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" name="email" placeholder="john@example.com" required>
+                            <input type="email" placeholder="john@example.com" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Project Type</label>
-                            <select name="project_type" required>
+                            <select>
                                 <option>YouTube Long-form</option>
                                 <option>Short-form / Reels</option>
                                 <option>Brand Ad</option>
@@ -2248,7 +2147,7 @@
                         </div>
                         <div class="form-group">
                             <label>Budget Range</label>
-                            <select name="budget_range" required>
+                            <select>
                                 <option>₹10k - ₹25k</option>
                                 <option>₹25k - ₹50k</option>
                                 <option>₹50k+</option>
@@ -2257,7 +2156,7 @@
                     </div>
                     <div class="form-group">
                         <label>Message</label>
-                        <textarea name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        <textarea rows="5" placeholder="Tell me about your project..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Work Request</button>
                 </form>
@@ -2297,6 +2196,32 @@
         document.addEventListener('DOMContentLoaded', () => {
             const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
             if (isFinePointer) document.body.classList.add('custom-cursor-enabled');
+
+            // --- LOGO / BRAND SMOOTH SCROLL TO TOP ---
+            function smoothScrollToTop(duration = 850) {
+                const startY = window.scrollY || document.documentElement.scrollTop;
+                const startTime = performance.now();
+                const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+                function step(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = easeOutCubic(progress);
+                    window.scrollTo(0, startY * (1 - eased));
+
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+
+                requestAnimationFrame(step);
+            }
+
+            document.querySelectorAll('.nav-brand').forEach(brandLink => {
+                brandLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    smoothScrollToTop();
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                });
+            });
 
             // --- SAFE THREE.JS BACKGROUND ---
             try {
@@ -2459,78 +2384,28 @@
                 document.body.style.overflow = '';
             }
 
-            // Project card hover preview: starts on hover and hides the website play overlay.
-            // Click-to-open full YouTube modal is unchanged.
+            // Hover preview only on desktop so mobile stays fast.
             if (isFinePointer && window.innerWidth > 900) {
                 document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
-                    function startProjectHoverPreview() {
+                    let hoverTimer;
+                    card.addEventListener('mouseenter', () => {
                         const videoId = getYouTubeId(card.getAttribute('data-youtube'));
-                        if (!videoId || videoId.includes('PASTE')) return;
-
-                        card.classList.add('is-previewing');
-
-                        let preview = card.querySelector('.hover-preview-iframe');
-                        if (!preview) {
-                            preview = document.createElement('iframe');
-                            preview.className = 'hover-preview-iframe project-hover-preview-iframe';
+                        if (!videoId || videoId.includes('PASTE') || card.querySelector('.hover-preview-iframe')) return;
+                        hoverTimer = setTimeout(() => {
+                            const preview = document.createElement('iframe');
+                            preview.className = 'hover-preview-iframe';
                             preview.allow = 'autoplay; encrypted-media; picture-in-picture';
-                            preview.setAttribute('allowfullscreen', '');
                             preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
                             card.appendChild(preview);
-                        }
-                    }
-
-                    function stopProjectHoverPreview() {
+                            card.classList.add('is-previewing');
+                        }, 220);
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        clearTimeout(hoverTimer);
                         card.classList.remove('is-previewing');
                         const preview = card.querySelector('.hover-preview-iframe');
-                        if (preview) preview.remove();
-                    }
-
-                    card.addEventListener('mouseenter', startProjectHoverPreview);
-                    card.addEventListener('mouseleave', stopProjectHoverPreview);
-                    card.addEventListener('focusin', startProjectHoverPreview);
-                    card.addEventListener('focusout', stopProjectHoverPreview);
-                });
-            }
-
-
-            // Dedicated Breakdown hover preview: starts immediately on desktop hover.
-            // This affects only the Breakdown / case-study section and keeps click-to-open modal unchanged.
-            if (isFinePointer && window.innerWidth > 900) {
-                document.querySelectorAll('.case-visual.video-trigger').forEach(caseVisual => {
-                    let caseHoverActive = false;
-
-                    function startCaseHoverPreview() {
-                        const videoId = getYouTubeId(caseVisual.getAttribute('data-youtube'));
-                        if (!videoId || videoId.includes('PASTE')) return;
-
-                        caseHoverActive = true;
-                        caseVisual.classList.add('is-previewing');
-
-                        let preview = caseVisual.querySelector('.hover-preview-iframe');
-                        if (!preview) {
-                            preview = document.createElement('iframe');
-                            preview.className = 'hover-preview-iframe case-hover-preview-iframe';
-                            preview.allow = 'autoplay; encrypted-media; picture-in-picture';
-                            preview.setAttribute('allowfullscreen', '');
-                            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
-                            caseVisual.appendChild(preview);
-                        }
-                    }
-
-                    function stopCaseHoverPreview() {
-                        caseHoverActive = false;
-                        caseVisual.classList.remove('is-previewing');
-                        const preview = caseVisual.querySelector('.hover-preview-iframe');
-                        if (preview) {
-                            preview.remove();
-                        }
-                    }
-
-                    caseVisual.addEventListener('mouseenter', startCaseHoverPreview);
-                    caseVisual.addEventListener('mouseleave', stopCaseHoverPreview);
-                    caseVisual.addEventListener('focusin', startCaseHoverPreview);
-                    caseVisual.addEventListener('focusout', stopCaseHoverPreview);
+                        if (preview) setTimeout(() => preview.remove(), 160);
+                    });
                 });
             }
 
@@ -2658,49 +2533,11 @@
 
             // --- FORM HANDLING ---
             const form = document.getElementById('portfolio-form');
-            form?.addEventListener('submit', async function(e) {
+            form?.addEventListener('submit', function(e) {
                 e.preventDefault();
+                this.style.display = 'none';
                 const success = document.getElementById('form-success');
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn ? submitBtn.textContent : '';
-
-                if (success) {
-                    success.style.display = 'block';
-                    success.style.color = 'var(--text-muted)';
-                    success.textContent = 'Sending your request...';
-                }
-                if (submitBtn) {
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = 'Sending...';
-                }
-
-                try {
-                    const response = await fetch(this.action, {
-                        method: 'POST',
-                        body: new FormData(this),
-                        headers: { 'Accept': 'application/json' }
-                    });
-
-                    if (response.ok) {
-                        this.reset();
-                        this.style.display = 'none';
-                        if (success) {
-                            success.style.color = 'var(--primary-red)';
-                            success.textContent = 'Request sent! I’ll get back to you soon. For a faster response, email me directly at redex1007@gmail.com.';
-                        }
-                    } else {
-                        throw new Error('Formspree submission failed');
-                    }
-                } catch (error) {
-                    if (success) {
-                        success.style.color = 'var(--primary-red)';
-                        success.textContent = 'Something went wrong. Please email me directly at redex1007@gmail.com.';
-                    }
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = originalBtnText || 'Send Work Request';
-                    }
-                }
+                if (success) success.style.display = 'block';
             });
 
             // --- GSAP REVEALS ---
