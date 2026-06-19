@@ -1356,6 +1356,94 @@
             .modal-content { max-width: 96vw; }
         }
 
+
+
+        /* --- HERO SHOWREEL MOBILE FIX --- */
+        @media (max-width: 768px) {
+            .hero-visual {
+                width: 100%;
+                flex: none;
+                justify-content: center;
+                align-items: center;
+                margin-top: 42px;
+                perspective: none;
+            }
+
+            .editor-ui.hero-reel-trigger,
+            .editor-ui {
+                width: min(92vw, 430px) !important;
+                max-width: none !important;
+                height: auto !important;
+                min-height: 0 !important;
+                padding: 16px !important;
+                border-radius: 18px;
+                transform: none !important;
+                margin: 0 auto;
+                box-shadow: 0 24px 65px rgba(0,0,0,0.48), 0 0 30px rgba(215,38,38,0.12);
+            }
+
+            .editor-ui .ui-header {
+                margin-bottom: 12px;
+            }
+
+            .editor-ui .ui-preview {
+                width: 100%;
+                height: auto !important;
+                aspect-ratio: 16 / 9;
+                margin-bottom: 12px;
+                border-radius: 12px;
+            }
+
+            .editor-ui .ui-play {
+                width: 58px;
+                height: 58px;
+                font-size: 1.15rem;
+                flex-shrink: 0;
+            }
+
+            .editor-ui .ui-timeline {
+                gap: 7px;
+            }
+
+            .editor-ui .ui-track {
+                height: 10px;
+            }
+
+            .editor-ui.hero-reel-trigger::after {
+                content: 'Showreel coming soon';
+                opacity: 1;
+                top: 14px;
+                right: 14px;
+                bottom: auto;
+                transform: none;
+                font-size: 0.58rem;
+                padding: 5px 8px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .editor-ui.hero-reel-trigger,
+            .editor-ui {
+                width: 94vw !important;
+                padding: 14px !important;
+                border-radius: 16px;
+            }
+
+            .editor-ui .ui-play {
+                width: 52px;
+                height: 52px;
+                font-size: 1rem;
+            }
+
+            .editor-ui .ui-track {
+                height: 8px;
+            }
+
+            .editor-ui.hero-reel-trigger::after {
+                font-size: 0.54rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1661,761 +1749,4 @@
                     <span class="work-tag">Short Form Content</span>
                     <h3>Short-Form Retention Edit 04</h3>
                     <p><b>Reels / Shorts</b><br>Clean short-form edit with dynamic captions, SFX, zooms, and retention-focused structure.</p>
-                    <div class="work-tools">
-                        <span class="tool-tag">Shorts</span>
-                        <span class="tool-tag">SFX</span>
-                        <span class="tool-tag">Pacing</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card" data-category="ads">
-                <div class="work-img-container video-trigger" data-youtube="https://www.youtube.com/watch?v=2XiiI_GJtRE">
-                    <img src="https://img.youtube.com/vi/2XiiI_GJtRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2XiiI_GJtRE/hqdefault.jpg'" alt="Loomia Trades AI">
-                    <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
-                </div>
-                <div class="work-info">
-                    <span class="work-tag">Brand Ads</span>
-                    <h3>Loomia Trades AI</h3>
-                    <p><b>AI Product / Brand Ad</b><br>AI trading product ad with product-focused framing, motion polish, sharp pacing, and CTA-style flow.</p>
-                    <div class="work-tools">
-                        <span class="tool-tag">After Effects</span>
-                        <span class="tool-tag">Brand Ad</span>
-                        <span class="tool-tag">Motion Graphics</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card" data-category="ads">
-                <div class="work-img-container video-trigger" data-youtube="https://www.youtube.com/watch?v=5RdRNtwQ8ig">
-                    <img src="https://img.youtube.com/vi/5RdRNtwQ8ig/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/5RdRNtwQ8ig/hqdefault.jpg'" alt="RazorFrame Studios Brand Video">
-                    <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
-                </div>
-                <div class="work-info">
-                    <span class="work-tag">Brand Ads</span>
-                    <h3>RazorFrame Studios Brand Video</h3>
-                    <p><b>Studio Promo / Brand Ad</b><br>Studio promo video with cinematic pacing, clean visual structure, motion graphics, and strong brand positioning.</p>
-                    <div class="work-tools">
-                        <span class="tool-tag">Premiere Pro</span>
-                        <span class="tool-tag">After Effects</span>
-                        <span class="tool-tag">Sound Design</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="case-studies">
-        <div class="section-header">
-            <h2>The <span class="red-text">Breakdown</span></h2>
-            <p>Playable mini case studies showing how footage turns into cleaner, sharper, more engaging edits.</p>
-        </div>
-        <div class="case-studies-grid container">
-            <!-- First two breakdowns use real before/after videos. Replace the third brand-ad link with a dedicated brand-ad before/after breakdown whenever ready. -->
-            <div class="case-card tilt" data-case-type="long">
-                <div class="case-visual video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">
-                    <span class="case-label">Long-Form Before/After</span>
-                    <img src="https://img.youtube.com/vi/4s-38MIhaKg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/4s-38MIhaKg/hqdefault.jpg'" alt="Before-after long-form breakdown preview">
-                    <div class="case-play-overlay"><div class="case-play-btn">▶</div></div>
-                    <div class="case-timeline-preview"></div>
-                </div>
-                <div class="case-content">
-                    <h3>Before → After Long-Form Edit</h3>
-                    <p>A real before/after breakdown showing how a long-form talking-head edit becomes tighter, cleaner, and easier to watch.</p>
-                    <div class="case-columns">
-                        <div class="case-column">
-                            <b>Before</b>
-                            <ul>
-                                <li>Flat talking-head rhythm</li>
-                                <li>Long pauses and dead space</li>
-                                <li>Weak visual variation</li>
-                            </ul>
-                        </div>
-                        <div class="case-column">
-                            <b>After</b>
-                            <ul>
-                                <li>Tighter cuts and pacing</li>
-                                <li>B-roll and visual examples</li>
-                                <li>Motion callouts and sound hits</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="case-decisions">
-                        <ul>
-                            <li>Removed filler gaps, added emphasis zooms, and built a stronger viewer flow.</li>
-                        </ul>
-                    </div>
-                    <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
-                        <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">Watch Breakdown</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="case-card tilt" data-case-type="short">
-                <div class="case-visual video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">
-                    <span class="case-label">Short-Form Breakdown</span>
-                    <img src="https://img.youtube.com/vi/HGptuF0sdWE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/HGptuF0sdWE/hqdefault.jpg'" alt="Before-after short-form breakdown preview">
-                    <div class="case-play-overlay"><div class="case-play-btn">▶</div></div>
-                    <div class="case-timeline-preview"></div>
-                </div>
-                <div class="case-content">
-                    <h3>Before → After Short-Form Edit</h3>
-                    <p>A real short-form before/after breakdown showing how pacing, captions, zooms, and sound design make the clip more engaging.</p>
-                    <div class="case-columns">
-                        <div class="case-column">
-                            <b>Before</b>
-                            <ul>
-                                <li>Normal clip energy</li>
-                                <li>Less visual hierarchy</li>
-                                <li>No strong rhythm</li>
-                            </ul>
-                        </div>
-                        <div class="case-column">
-                            <b>After</b>
-                            <ul>
-                                <li>Hook-first structure</li>
-                                <li>Dynamic captions</li>
-                                <li>SFX, zooms, and faster pacing</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="case-decisions">
-                        <ul>
-                            <li>Built a punchier opening, added caption hierarchy, and matched cuts with audio energy.</li>
-                        </ul>
-                    </div>
-                    <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
-                        <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">Watch Breakdown</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="case-card tilt" data-case-type="ad">
-                <div class="case-visual video-trigger" data-youtube="https://www.youtube.com/watch?v=2XiiI_GJtRE">
-                    <span class="case-label">Brand Ad Breakdown</span>
-                    <img src="https://img.youtube.com/vi/2XiiI_GJtRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2XiiI_GJtRE/hqdefault.jpg'" alt="Loomia Trades AI brand ad breakdown preview">
-                    <div class="case-play-overlay"><div class="case-play-btn">▶</div></div>
-                    <div class="case-timeline-preview"></div>
-                </div>
-                <div class="case-content">
-                    <h3>Basic Brand Footage → Polished Product Ad</h3>
-                    <p>A brand/product ad example shaped with motion polish, product-focused framing, clean pacing, and a CTA-style flow.</p>
-                    <div class="case-columns">
-                        <div class="case-column">
-                            <b>Before</b>
-                            <ul>
-                                <li>Simple product idea</li>
-                                <li>Needs clearer structure</li>
-                                <li>Less premium motion feel</li>
-                            </ul>
-                        </div>
-                        <div class="case-column">
-                            <b>After</b>
-                            <ul>
-                                <li>Sharper brand flow</li>
-                                <li>Motion graphics support</li>
-                                <li>Cleaner visual hierarchy</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="case-decisions">
-                        <ul>
-                            <li>Used product-focused cuts, motion emphasis, and pacing that feels more client-ready.</li>
-                        </ul>
-                    </div>
-                    <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the ad.</span>
-                        <button class="btn btn-outline video-trigger" data-youtube="https://www.youtube.com/watch?v=2XiiI_GJtRE">Watch Breakdown</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="process">
-        <div class="section-header">
-            <h2>The <span class="red-text">Pipeline</span></h2>
-            <p>My simple, 6-step workflow to ensure your video is perfect.</p>
-        </div>
-        <div class="process-steps">
-            <div class="process-line"></div>
-            <div class="process-progress" id="process-progress"></div>
-            
-            <div class="step-item tilt">
-                <div class="step-num">01</div>
-                <div>
-                    <h3>Discovery</h3>
-                    <p>We discuss your goals, style, and target audience to align on the creative vision.</p>
-                </div>
-            </div>
-            <div class="step-item tilt">
-                <div class="step-num">02</div>
-                <div>
-                    <h3>Strategy</h3>
-                    <p>I analyze the footage and plan the hook, pacing, and key motion elements.</p>
-                </div>
-            </div>
-            <div class="step-item tilt">
-                <div class="step-num">03</div>
-                <div>
-                    <h3>Rough Cut</h3>
-                    <p>Building the foundation: story flow, clean cuts, and initial structure.</p>
-                </div>
-            </div>
-            <div class="step-item tilt">
-                <div class="step-num">04</div>
-                <div>
-                    <h3>Visual Polish</h3>
-                    <p>Adding motion graphics, captions, b-roll, and sound design to bring it to life.</p>
-                </div>
-            </div>
-            <div class="step-item tilt">
-                <div class="step-num">05</div>
-                <div>
-                    <h3>Review</h3>
-                    <p>You review the edit, and I make refinements based on your feedback.</p>
-                </div>
-            </div>
-            <div class="step-item tilt">
-                <div class="step-num">06</div>
-                <div>
-                    <h3>Delivery</h3>
-                    <p>Final high-quality render in all the formats you need for your platforms.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="about">
-        <div class="section-header">
-            <h2>About <span class="red-text">Me</span></h2>
-            <p>The editor behind the cuts, pacing, motion graphics, and final polish.</p>
-        </div>
-
-        <div class="about-grid container">
-            <div class="about-photo-card tilt">
-                <div class="about-photo-frame">
-                    <!-- Replace this image src with your profile photo if needed. Keep input_file_0.png in the same GitHub repo folder as index.html. -->
-                    <img src="input_file_0.png" alt="Abhi aka Redex">
-                </div>
-                <h3 class="about-photo-card-name">Abhi aka Redex</h3>
-                <div class="about-photo-card-role">Motion Designer / Video Editor</div>
-                <div class="about-photo-card-tags">
-                    <span class="dot"></span>
-                    <span>Editing</span>
-                    <span>·</span>
-                    <span>Motion Graphics</span>
-                    <span>·</span>
-                    <span>Retention</span>
-                </div>
-                <p class="about-photo-card-copy">I turn raw ideas and footage into clean, polished videos with pacing, sound design, motion graphics, and story-driven visual execution.</p>
-                <div class="about-mini-stats">
-                    <div class="about-mini-stat"><b>2.5+</b><span>Years</span></div>
-                    <div class="about-mini-stat"><b>50+</b><span>Videos</span></div>
-                    <div class="about-mini-stat"><b>Adobe</b><span>Workflow</span></div>
-                </div>
-            </div>
-
-            <div class="about-text-card tilt">
-                <span class="about-kicker">Motion Designer / Video Editor</span>
-                <div class="about-intro">
-                    I am Abhi aka <span class="red-text">Redex</span>, and I create clean, engaging videos with editing, motion graphics, pacing, sound design, and visual storytelling.
-                </div>
-                <p>
-                    I have been in this field for the past <strong>2.5+ years</strong>, working across long-form YouTube videos, short-form reels, brand ads, talking-head edits, faceless content, and motion-heavy visuals. My focus is not just to make a video look good, but to make it easier to watch, sharper in flow, and stronger in retention.
-                </p>
-                <p>
-                    I think about every edit like a viewer: where the hook should hit, where the pacing slows down, where a zoom or cut can bring energy, where motion graphics can explain the idea better, and where sound design can make the moment feel alive.
-                </p>
-
-                <ul class="about-focus-list">
-                    <li>YouTube long-form editing</li>
-                    <li>Instagram Reels / Shorts</li>
-                    <li>Brand ads and product videos</li>
-                    <li>Motion graphics and typography</li>
-                    <li>Sound design and pacing</li>
-                    <li>Retention-focused storytelling</li>
-                </ul>
-
-                <div class="about-tools-row">
-                    <span class="about-tool-pill">Adobe Premiere Pro</span>
-                    <span class="about-tool-pill">Adobe After Effects</span>
-                    <span class="about-tool-pill">Adobe Photoshop</span>
-                    <span class="about-tool-pill">Motion Graphics</span>
-                    <span class="about-tool-pill">Sound Design</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="about-values-grid container">
-            <div class="about-value-card tilt">
-                <div class="value-num">01</div>
-                <h3>Retention-first editing</h3>
-                <p>I edit with pacing, attention, structure, and viewer drop-off in mind.</p>
-            </div>
-            <div class="about-value-card tilt">
-                <div class="value-num">02</div>
-                <h3>Clean motion design</h3>
-                <p>I use typography, callouts, UI motion, and visual polish to make videos feel premium.</p>
-            </div>
-            <div class="about-value-card tilt">
-                <div class="value-num">03</div>
-                <h3>Story-driven visuals</h3>
-                <p>I focus on clarity and flow so the message feels simple, sharp, and easy to follow.</p>
-            </div>
-            <div class="about-value-card tilt">
-                <div class="value-num">04</div>
-                <h3>Reliable workflow</h3>
-                <p>I keep the process clear with communication, feedback, revisions, and final delivery.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq">
-        <div class="section-header">
-            <h2>FAQ</h2>
-        </div>
-        <div class="faq-container">
-            <div class="faq-item">
-                <button class="faq-question">What type of videos do you edit? <span class="faq-icon">+</span></button>
-                <div class="faq-answer">
-                    <p>I specialize in YouTube long-form, Instagram Reels, and Brand Ads. Basically, anything that needs high-level pacing and motion graphics support.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What is your typical turnaround time? <span class="faq-icon">+</span></button>
-                <div class="faq-answer">
-                    <p>Short-form usually takes 24-48 hours. Long-form depends on complexity but typically ranges from 3-7 days.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <button class="faq-question">What tools do you use? <span class="faq-icon">+</span></button>
-                <div class="faq-answer">
-                    <p>I work with Adobe Premiere Pro, Adobe After Effects, Adobe Photoshop, motion graphics, sound design, and retention-focused editing workflows.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="contact-grid container">
-            <div class="contact-info">
-                <h2>Let's build <span class="red-text">something</span> great.</h2>
-                <p>Ready to level up your video content? Reach out below and I'll get back to you within 24 hours.</p>
-                
-                <a href="mailto:redex1007@gmail.com" class="contact-card">
-                    <i>✉</i>
-                    <div>
-                        <b>Email Me</b><br>
-                        <span class="text-muted">redex1007@gmail.com</span>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/redex.editz/" target="_blank" class="contact-card">
-                    <i>📸</i>
-                    <div>
-                        <b>Instagram</b><br>
-                        <span class="text-muted">@redex.editz</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="contact-form">
-                <form id="portfolio-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="john@example.com" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Project Type</label>
-                            <select>
-                                <option>YouTube Long-form</option>
-                                <option>Short-form / Reels</option>
-                                <option>Brand Ad</option>
-                                <option>Motion Graphics</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Budget Range</label>
-                            <select>
-                                <option>₹10k - ₹25k</option>
-                                <option>₹25k - ₹50k</option>
-                                <option>₹50k+</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea rows="5" placeholder="Tell me about your project..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Work Request</button>
-                </form>
-                <div id="form-success" style="display:none; text-align:center; padding: 20px; color: var(--primary-red); font-weight: bold;">
-                    Message noted! For a faster response, email me directly at redex1007@gmail.com.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-logo">
-            <img src="input_file_0.png" alt="Abhi" style="width: 38px; height: 38px; object-fit: cover; border-radius: 50%; border: 1px solid var(--primary-red); box-shadow: 0 0 12px var(--red-glow);">
-            <h3>ABHI</h3>
-        </div>
-        <div class="footer-links">
-            <a href="#home">Home</a>
-            <a href="#work">Portfolio</a>
-            <a href="#services">Services</a>
-            <a href="#about">About</a>
-            <a href="#contact">Hire Me</a>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 ABHI | Built for creators who deserve better execution.</p>
-        </div>
-    </footer>
-
-    <!-- MODAL FOR VIDEOS -->
-    <div id="video-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <iframe id="video-iframe" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-            if (isFinePointer) document.body.classList.add('custom-cursor-enabled');
-
-            // --- SAFE THREE.JS BACKGROUND ---
-            try {
-                if (window.THREE) {
-                    const canvasContainer = document.getElementById('canvas-container');
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1.25 : 2));
-                    canvasContainer.appendChild(renderer.domElement);
-
-                    const geometries = [];
-                    const isMobile = window.innerWidth < 768;
-                    const stripCount = isMobile ? 8 : 15;
-                    const particleCount = isMobile ? 220 : 500;
-                    const material = new THREE.MeshBasicMaterial({ color: 0xD72626, wireframe: true, transparent: true, opacity: 0.1 });
-
-                    for (let i = 0; i < stripCount; i++) {
-                        const geometry = new THREE.PlaneGeometry(Math.random() * 5 + 2, 0.2);
-                        const mesh = new THREE.Mesh(geometry, material);
-                        mesh.position.set(Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 10 - 15);
-                        mesh.rotation.z = Math.random() * Math.PI;
-                        scene.add(mesh);
-                        geometries.push(mesh);
-                    }
-
-                    const partGeo = new THREE.BufferGeometry();
-                    const posArray = new Float32Array(particleCount * 3);
-                    for (let i = 0; i < particleCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 30;
-                    partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-                    const partMat = new THREE.PointsMaterial({ size: isMobile ? 0.018 : 0.02, color: 0xD72626 });
-                    const particles = new THREE.Points(partGeo, partMat);
-                    scene.add(particles);
-
-                    camera.position.z = 5;
-                    let mouseX = 0;
-                    let mouseY = 0;
-                    window.addEventListener('mousemove', (e) => {
-                        mouseX = (e.clientX / window.innerWidth) - 0.5;
-                        mouseY = (e.clientY / window.innerHeight) - 0.5;
-                    }, { passive: true });
-
-                    function animateBackground() {
-                        requestAnimationFrame(animateBackground);
-                        geometries.forEach((g, i) => {
-                            g.position.x += Math.sin(Date.now() * 0.001 + i) * 0.005;
-                            g.rotation.y += 0.002;
-                        });
-                        particles.rotation.y += 0.001;
-                        camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-                        camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
-                        camera.lookAt(scene.position);
-                        renderer.render(scene, camera);
-                    }
-                    animateBackground();
-
-                    window.addEventListener('resize', () => {
-                        camera.aspect = window.innerWidth / window.innerHeight;
-                        camera.updateProjectionMatrix();
-                        renderer.setSize(window.innerWidth, window.innerHeight);
-                    });
-                }
-            } catch (error) {
-                console.warn('3D background skipped:', error);
-            }
-
-            // --- CUSTOM CURSOR ---
-            const cursorDot = document.getElementById('cursor-dot');
-            const cursorOutline = document.getElementById('cursor-outline');
-            if (isFinePointer && cursorDot && cursorOutline) {
-                window.addEventListener('mousemove', (e) => {
-                    const posX = e.clientX;
-                    const posY = e.clientY;
-                    cursorDot.style.left = `${posX}px`;
-                    cursorDot.style.top = `${posY}px`;
-                    cursorOutline.animate({ left: `${posX - 20}px`, top: `${posY - 20}px` }, { duration: 450, fill: 'forwards' });
-                }, { passive: true });
-
-                document.querySelectorAll('a, button, .video-trigger, .tilt, .faq-question, .hero-reel-trigger').forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        cursorOutline.style.width = '60px';
-                        cursorOutline.style.height = '60px';
-                        cursorOutline.style.background = 'rgba(215, 38, 38, 0.1)';
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        cursorOutline.style.width = '40px';
-                        cursorOutline.style.height = '40px';
-                        cursorOutline.style.background = 'transparent';
-                    });
-                });
-            }
-
-            // --- 3D TILT EFFECT ---
-            if (isFinePointer) {
-                document.querySelectorAll('.tilt').forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-                        const rotateX = (y - centerY) / 18;
-                        const rotateY = (centerX - x) / 18;
-                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-                        card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-                        card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
-                    });
-                });
-            }
-
-            // --- VIDEO MODAL LOGIC ---
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('video-iframe');
-            const closeBtn = document.querySelector('.close-modal');
-
-            function getYouTubeId(input) {
-                if (!input) return '';
-                const value = input.trim();
-                const patterns = [
-                    /(?:youtube\.com\/watch\?v=)([^&\s]+)/,
-                    /(?:youtu\.be\/)([^?&\s]+)/,
-                    /(?:youtube\.com\/embed\/)([^?&\s]+)/,
-                    /(?:youtube\.com\/shorts\/)([^?&\s]+)/
-                ];
-                for (const pattern of patterns) {
-                    const match = value.match(pattern);
-                    if (match) return match[1];
-                }
-                return value;
-            }
-
-            function openVideoFromElement(trigger) {
-                const videoId = getYouTubeId(trigger.getAttribute('data-youtube'));
-                if (!videoId || videoId.includes('PASTE')) return false;
-                if (iframe && modal) {
-                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-                    modal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                }
-                return true;
-            }
-
-            // Hover preview only on desktop so mobile stays fast.
-            if (isFinePointer && window.innerWidth > 900) {
-                document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
-                    let hoverTimer;
-                    card.addEventListener('mouseenter', () => {
-                        const videoId = getYouTubeId(card.getAttribute('data-youtube'));
-                        if (!videoId || videoId.includes('PASTE') || card.querySelector('.hover-preview-iframe')) return;
-                        hoverTimer = setTimeout(() => {
-                            const preview = document.createElement('iframe');
-                            preview.className = 'hover-preview-iframe';
-                            preview.allow = 'autoplay; encrypted-media; picture-in-picture';
-                            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
-                            card.appendChild(preview);
-                            card.classList.add('is-previewing');
-                        }, 220);
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        clearTimeout(hoverTimer);
-                        card.classList.remove('is-previewing');
-                        const preview = card.querySelector('.hover-preview-iframe');
-                        if (preview) setTimeout(() => preview.remove(), 160);
-                    });
-                });
-            }
-
-            document.querySelectorAll('.video-trigger').forEach(trigger => {
-                trigger.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    openVideoFromElement(trigger);
-                });
-            });
-
-            document.querySelectorAll('.hero-reel-trigger').forEach(trigger => {
-                trigger.addEventListener('click', () => {
-                    if (!openVideoFromElement(trigger)) document.getElementById('showreel')?.scrollIntoView({ behavior: 'smooth' });
-                });
-                trigger.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        if (!openVideoFromElement(trigger)) document.getElementById('showreel')?.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-            closeBtn?.addEventListener('click', () => {
-                modal.style.display = 'none';
-                iframe.src = '';
-                document.body.style.overflow = '';
-            });
-
-            modal?.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                    iframe.src = '';
-                    document.body.style.overflow = '';
-                }
-            });
-
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && modal?.style.display === 'flex') {
-                    modal.style.display = 'none';
-                    iframe.src = '';
-                    document.body.style.overflow = '';
-                }
-            });
-
-            // --- PORTFOLIO FILTER ---
-            const tabs = document.querySelectorAll('.filter-tab');
-            const projects = document.querySelectorAll('.work-card');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    const filter = tab.getAttribute('data-filter');
-                    projects.forEach((project, index) => {
-                        const shouldShow = filter === 'all' || project.getAttribute('data-category') === filter;
-                        if (shouldShow) {
-                            project.style.display = '';
-                            project.style.opacity = '0';
-                            project.style.transform = 'translateY(16px)';
-                            setTimeout(() => {
-                                project.style.opacity = '1';
-                                project.style.transform = 'translateY(0)';
-                            }, Math.min(45 * index, 360));
-                        } else {
-                            project.style.opacity = '0';
-                            project.style.transform = 'scale(0.96)';
-                            setTimeout(() => project.style.display = 'none', 260);
-                        }
-                    });
-                });
-            });
-
-            // --- FAQ ACCORDION ---
-            document.querySelectorAll('.faq-item').forEach(item => {
-                const question = item.querySelector('.faq-question');
-                question?.addEventListener('click', () => {
-                    const isActive = item.classList.contains('active');
-                    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                    if (!isActive) item.classList.add('active');
-                });
-            });
-
-            // --- ANIMATED COUNTERS ---
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const target = +counter.getAttribute('data-target');
-                        const duration = 1600;
-                        const increment = target / (duration / 16);
-                        let current = 0;
-                        const update = () => {
-                            current += increment;
-                            if (current < target) {
-                                counter.innerText = Math.ceil(current);
-                                requestAnimationFrame(update);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-                        update();
-                        counterObserver.unobserve(counter);
-                    }
-                });
-            }, { threshold: 0.4 });
-            document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
-
-            // --- PROCESS PROGRESS BAR ---
-            function updateProcessProgress() {
-                const processSection = document.getElementById('process');
-                const progressLine = document.getElementById('process-progress');
-                if (!processSection || !progressLine) return;
-                const rect = processSection.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                if (rect.top < windowHeight && rect.bottom > 0) {
-                    const percentage = Math.min(Math.max(((windowHeight - rect.top) / rect.height) * 100, 0), 100);
-                    progressLine.style.height = `${percentage}%`;
-                }
-            }
-            window.addEventListener('scroll', updateProcessProgress, { passive: true });
-            updateProcessProgress();
-
-            // --- FORM HANDLING ---
-            const form = document.getElementById('portfolio-form');
-            form?.addEventListener('submit', function(e) {
-                e.preventDefault();
-                this.style.display = 'none';
-                const success = document.getElementById('form-success');
-                if (success) success.style.display = 'block';
-            });
-
-            // --- GSAP REVEALS ---
-            try {
-                if (window.gsap && window.ScrollTrigger) {
-                    gsap.registerPlugin(ScrollTrigger);
-                    gsap.utils.toArray('section').forEach(section => {
-                        gsap.from(section, {
-                            opacity: 0,
-                            y: 40,
-                            duration: 0.9,
-                            scrollTrigger: {
-                                trigger: section,
-                                start: 'top 84%',
-                                toggleActions: 'play none none none'
-                            }
-                        });
-                    });
-                }
-            } catch (error) {
-                console.warn('GSAP reveal skipped:', error);
-            }
-        });
-    </script>
-</body>
-</html>
+                    <div class
