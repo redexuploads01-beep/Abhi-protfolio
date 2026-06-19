@@ -524,14 +524,34 @@
         }
 
         .work-img-container.is-previewing .work-overlay {
-            background: rgba(0,0,0,0.18);
-            opacity: 1;
+            background: transparent;
+            opacity: 0 !important;
+            pointer-events: none;
             z-index: 2;
         }
 
         .work-img-container.is-previewing .big-play-btn {
-            transform: scale(0.78);
-            opacity: 0.85;
+            transform: scale(0.55);
+            opacity: 0;
+        }
+
+        .case-visual.is-previewing img {
+            opacity: 0;
+        }
+
+        .case-visual.is-previewing .hover-preview-iframe {
+            opacity: 1;
+        }
+
+        .case-visual.is-previewing .case-play-overlay {
+            background: transparent;
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .case-visual.is-previewing .case-play-btn {
+            transform: scale(0.55);
+            opacity: 0;
         }
 
         /* --- SERVICES --- */
@@ -670,6 +690,7 @@
             transition: 0.3s;
         }
         .work-card:hover .work-overlay { opacity: 1; }
+        .work-card:hover .work-img-container.video-trigger .work-overlay { opacity: 0; pointer-events: none; }
 
         /* --- CASE STUDIES --- */
         .case-studies-grid {
@@ -758,7 +779,11 @@
             transition: background 0.35s ease;
         }
 
-        .case-card:hover .case-play-overlay { background: rgba(215,38,38,0.16); }
+        .case-card:hover .case-play-overlay {
+            background: transparent;
+            opacity: 0;
+            pointer-events: none;
+        }
 
         .case-play-btn {
             width: 72px;
@@ -2125,34 +2150,33 @@
 
             <div class="contact-form">
                 <form id="portfolio-form" action="https://formspree.io/f/xnjyevwo" method="POST">
-                    <input type="hidden" name="_subject" value="New portfolio work request from Abhi website">
-                    <input type="hidden" name="source" value="Abhi Portfolio Website">
+                    <input type="hidden" name="_subject" value="New portfolio work request from Abhi site">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" name="name" placeholder="John Doe" required autocomplete="name">
+                            <input type="text" name="name" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" name="email" placeholder="john@example.com" required autocomplete="email">
+                            <input type="email" name="email" placeholder="john@example.com" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Project Type</label>
                             <select name="project_type" required>
-                                <option value="YouTube Long-form">YouTube Long-form</option>
-                                <option value="Short-form / Reels">Short-form / Reels</option>
-                                <option value="Brand Ad">Brand Ad</option>
-                                <option value="Motion Graphics">Motion Graphics</option>
+                                <option>YouTube Long-form</option>
+                                <option>Short-form / Reels</option>
+                                <option>Brand Ad</option>
+                                <option>Motion Graphics</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Budget Range</label>
                             <select name="budget_range" required>
-                                <option value="₹10k - ₹25k">₹10k - ₹25k</option>
-                                <option value="₹25k - ₹50k">₹25k - ₹50k</option>
-                                <option value="₹50k+">₹50k+</option>
+                                <option>₹10k - ₹25k</option>
+                                <option>₹25k - ₹50k</option>
+                                <option>₹50k+</option>
                             </select>
                         </div>
                     </div>
@@ -2163,10 +2187,7 @@
                     <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Work Request</button>
                 </form>
                 <div id="form-success" style="display:none; text-align:center; padding: 20px; color: var(--primary-red); font-weight: bold;">
-                    Thanks! Your request has been sent. I’ll get back to you soon. For a faster response, email me directly at redex1007@gmail.com.
-                </div>
-                <div id="form-error" style="display:none; text-align:center; padding: 20px; color: var(--highlight); font-weight: bold;">
-                    Something went wrong while sending. Please email me directly at redex1007@gmail.com.
+                    Message noted! For a faster response, email me directly at redex1007@gmail.com.
                 </div>
             </div>
         </div>
@@ -2365,7 +2386,7 @@
 
             // Hover preview only on desktop so mobile stays fast.
             if (isFinePointer && window.innerWidth > 900) {
-                document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
+                document.querySelectorAll('.work-img-container.video-trigger, .case-visual.video-trigger').forEach(card => {
                     let hoverTimer;
                     card.addEventListener('mouseenter', () => {
                         const videoId = getYouTubeId(card.getAttribute('data-youtube'));
@@ -2514,23 +2535,23 @@
             const form = document.getElementById('portfolio-form');
             form?.addEventListener('submit', async function(e) {
                 e.preventDefault();
-
                 const success = document.getElementById('form-success');
-                const error = document.getElementById('form-error');
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalBtnText = submitBtn ? submitBtn.textContent : '';
 
-                if (success) success.style.display = 'none';
-                if (error) error.style.display = 'none';
+                if (success) {
+                    success.style.display = 'block';
+                    success.style.color = 'var(--text-muted)';
+                    success.textContent = 'Sending your request...';
+                }
                 if (submitBtn) {
                     submitBtn.disabled = true;
                     submitBtn.textContent = 'Sending...';
-                    submitBtn.style.opacity = '0.75';
                 }
 
                 try {
                     const response = await fetch(this.action, {
-                        method: this.method || 'POST',
+                        method: 'POST',
                         body: new FormData(this),
                         headers: { 'Accept': 'application/json' }
                     });
@@ -2538,17 +2559,21 @@
                     if (response.ok) {
                         this.reset();
                         this.style.display = 'none';
-                        if (success) success.style.display = 'block';
+                        if (success) {
+                            success.style.color = 'var(--primary-red)';
+                            success.textContent = 'Request sent! I’ll get back to you soon. For a faster response, email me directly at redex1007@gmail.com.';
+                        }
                     } else {
-                        if (error) error.style.display = 'block';
+                        throw new Error('Formspree submission failed');
                     }
-                } catch (err) {
-                    if (error) error.style.display = 'block';
-                } finally {
+                } catch (error) {
+                    if (success) {
+                        success.style.color = 'var(--primary-red)';
+                        success.textContent = 'Something went wrong. Please email me directly at redex1007@gmail.com.';
+                    }
                     if (submitBtn) {
                         submitBtn.disabled = false;
-                        submitBtn.textContent = originalBtnText;
-                        submitBtn.style.opacity = '1';
+                        submitBtn.textContent = originalBtnText || 'Send Work Request';
                     }
                 }
             });
