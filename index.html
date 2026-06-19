@@ -1517,7 +1517,23 @@
         }
 
 
-        /* --- PROJECT VIDEO HOVER PREVIEW: HIDE PLAY BUTTON ON HOVER --- */
+        /* --- PROJECT VIDEO PLAY BUTTON + HOVER PREVIEW --- */
+        /* Show a clean play button on project cards before hover/tap */
+        .work-img-container.video-trigger .work-overlay {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.28));
+            z-index: 3;
+        }
+
+        .work-img-container.video-trigger .big-play-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        /* Hide the website play button once hover preview starts */
         .work-img-container.video-trigger:hover .work-overlay,
         .work-img-container.video-trigger.is-previewing .work-overlay {
             opacity: 0 !important;
