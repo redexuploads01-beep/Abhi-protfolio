@@ -1516,6 +1516,28 @@
             }
         }
 
+
+        /* --- PROJECT VIDEO HOVER PREVIEW: HIDE PLAY BUTTON ON HOVER --- */
+        .work-img-container.video-trigger:hover .work-overlay,
+        .work-img-container.video-trigger.is-previewing .work-overlay {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            background: transparent !important;
+        }
+
+        .work-img-container.video-trigger:hover .big-play-btn,
+        .work-img-container.video-trigger.is-previewing .big-play-btn {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: scale(0.45) !important;
+            pointer-events: none !important;
+        }
+
+        .work-img-container.video-trigger.is-previewing::after {
+            opacity: 0 !important;
+        }
+
     </style>
 </head>
 <body>
@@ -2419,28 +2441,37 @@
                 document.body.style.overflow = '';
             }
 
-            // Hover preview only on desktop so mobile stays fast.
+            // Project card hover preview: starts on hover and hides the website play overlay.
+            // Click-to-open full YouTube modal is unchanged.
             if (isFinePointer && window.innerWidth > 900) {
                 document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
-                    let hoverTimer;
-                    card.addEventListener('mouseenter', () => {
+                    function startProjectHoverPreview() {
                         const videoId = getYouTubeId(card.getAttribute('data-youtube'));
-                        if (!videoId || videoId.includes('PASTE') || card.querySelector('.hover-preview-iframe')) return;
-                        hoverTimer = setTimeout(() => {
-                            const preview = document.createElement('iframe');
-                            preview.className = 'hover-preview-iframe';
+                        if (!videoId || videoId.includes('PASTE')) return;
+
+                        card.classList.add('is-previewing');
+
+                        let preview = card.querySelector('.hover-preview-iframe');
+                        if (!preview) {
+                            preview = document.createElement('iframe');
+                            preview.className = 'hover-preview-iframe project-hover-preview-iframe';
                             preview.allow = 'autoplay; encrypted-media; picture-in-picture';
+                            preview.setAttribute('allowfullscreen', '');
                             preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
                             card.appendChild(preview);
-                            card.classList.add('is-previewing');
-                        }, 220);
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        clearTimeout(hoverTimer);
+                        }
+                    }
+
+                    function stopProjectHoverPreview() {
                         card.classList.remove('is-previewing');
                         const preview = card.querySelector('.hover-preview-iframe');
-                        if (preview) setTimeout(() => preview.remove(), 160);
-                    });
+                        if (preview) preview.remove();
+                    }
+
+                    card.addEventListener('mouseenter', startProjectHoverPreview);
+                    card.addEventListener('mouseleave', stopProjectHoverPreview);
+                    card.addEventListener('focusin', startProjectHoverPreview);
+                    card.addEventListener('focusout', stopProjectHoverPreview);
                 });
             }
 
