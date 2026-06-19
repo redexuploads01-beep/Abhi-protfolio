@@ -554,6 +554,41 @@
             opacity: 0;
         }
 
+
+        /* --- BREAKDOWN HOVER PREVIEW FIX --- */
+        .case-visual.video-trigger {
+            cursor: pointer;
+        }
+
+        .case-visual .hover-preview-iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.25s ease;
+        }
+
+        .case-visual.is-previewing img {
+            opacity: 0;
+        }
+
+        .case-visual.is-previewing .hover-preview-iframe {
+            opacity: 1;
+        }
+
+        .case-visual.is-previewing .case-play-overlay {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .case-visual.is-previewing .case-timeline-preview {
+            opacity: 0;
+        }
+
         /* --- SERVICES --- */
         .services-grid {
             display: grid;
@@ -1871,7 +1906,7 @@
                         </ul>
                     </div>
                     <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
+                        <span class="case-note">Hover to preview. Click to watch with sound.</span>
                         <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">Watch Breakdown</button>
                     </div>
                 </div>
@@ -1911,7 +1946,7 @@
                         </ul>
                     </div>
                     <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
+                        <span class="case-note">Hover to preview. Click to watch with sound.</span>
                         <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">Watch Breakdown</button>
                     </div>
                 </div>
@@ -2386,7 +2421,7 @@
 
             // Hover preview only on desktop so mobile stays fast.
             if (isFinePointer && window.innerWidth > 900) {
-                document.querySelectorAll('.work-img-container.video-trigger, .case-visual.video-trigger').forEach(card => {
+                document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
                     let hoverTimer;
                     card.addEventListener('mouseenter', () => {
                         const videoId = getYouTubeId(card.getAttribute('data-youtube'));
@@ -2406,6 +2441,47 @@
                         const preview = card.querySelector('.hover-preview-iframe');
                         if (preview) setTimeout(() => preview.remove(), 160);
                     });
+                });
+            }
+
+
+            // Dedicated Breakdown hover preview: starts immediately on desktop hover.
+            // This affects only the Breakdown / case-study section and keeps click-to-open modal unchanged.
+            if (isFinePointer && window.innerWidth > 900) {
+                document.querySelectorAll('.case-visual.video-trigger').forEach(caseVisual => {
+                    let caseHoverActive = false;
+
+                    function startCaseHoverPreview() {
+                        const videoId = getYouTubeId(caseVisual.getAttribute('data-youtube'));
+                        if (!videoId || videoId.includes('PASTE')) return;
+
+                        caseHoverActive = true;
+                        caseVisual.classList.add('is-previewing');
+
+                        let preview = caseVisual.querySelector('.hover-preview-iframe');
+                        if (!preview) {
+                            preview = document.createElement('iframe');
+                            preview.className = 'hover-preview-iframe case-hover-preview-iframe';
+                            preview.allow = 'autoplay; encrypted-media; picture-in-picture';
+                            preview.setAttribute('allowfullscreen', '');
+                            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
+                            caseVisual.appendChild(preview);
+                        }
+                    }
+
+                    function stopCaseHoverPreview() {
+                        caseHoverActive = false;
+                        caseVisual.classList.remove('is-previewing');
+                        const preview = caseVisual.querySelector('.hover-preview-iframe');
+                        if (preview) {
+                            preview.remove();
+                        }
+                    }
+
+                    caseVisual.addEventListener('mouseenter', startCaseHoverPreview);
+                    caseVisual.addEventListener('mouseleave', stopCaseHoverPreview);
+                    caseVisual.addEventListener('focusin', startCaseHoverPreview);
+                    caseVisual.addEventListener('focusout', stopCaseHoverPreview);
                 });
             }
 
