@@ -1259,8 +1259,9 @@
             display: flex;
             flex-direction: column;
             min-height: 100%;
-            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
-            transform-style: preserve-3d;
+            transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+            transform-style: flat;
+            will-change: transform;
         }
 
         .pricing-card::before {
@@ -1291,7 +1292,7 @@
         .pricing-card:hover::before { opacity: 1; }
         .pricing-card:hover::after { left: 120%; }
         .pricing-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.018);
             border-color: rgba(215,38,38,0.55);
             box-shadow: 0 30px 75px rgba(0,0,0,0.46), 0 0 35px rgba(215,38,38,0.16);
             background: var(--bg-card-hover);
@@ -1461,6 +1462,18 @@
             max-width: 980px;
             position: relative;
             z-index: 2;
+        }
+
+        .custom-pricing-callout {
+            transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+            transform-style: flat;
+            will-change: transform;
+        }
+
+        .custom-pricing-callout:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: rgba(215,38,38,0.42);
+            box-shadow: 0 36px 85px rgba(0,0,0,0.42), 0 0 42px rgba(215,38,38,0.13);
         }
 
         .pricing-cta {
@@ -2452,7 +2465,7 @@
         </div>
 
         <div class="pricing-grid container">
-            <div class="pricing-card tilt" data-video-type="wide">
+            <div class="pricing-card" data-video-type="wide">
                 <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtu.be/2XiiI_GJtRE?si=XupkX2VjSwezJ5i6">
                     <img src="https://img.youtube.com/vi/2XiiI_GJtRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2XiiI_GJtRE/hqdefault.jpg'" alt="SaaS Ads and Complex Motion Graphics example">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
@@ -2476,7 +2489,7 @@
                 </div>
             </div>
 
-            <div class="pricing-card tilt" data-video-type="wide">
+            <div class="pricing-card" data-video-type="wide">
                 <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtu.be/gF6EKgkIrCg?si=i7qnGH19CE2Ga1Pp">
                     <img src="https://img.youtube.com/vi/gF6EKgkIrCg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/gF6EKgkIrCg/hqdefault.jpg'" alt="Long-form video example">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
@@ -2500,7 +2513,7 @@
                 </div>
             </div>
 
-            <div class="pricing-card tilt" data-video-type="short">
+            <div class="pricing-card" data-video-type="short">
                 <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtube.com/shorts/fJAlrXwwfoQ?si=9MYpKJzvazZXWR8Z">
                     <img src="https://img.youtube.com/vi/fJAlrXwwfoQ/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/fJAlrXwwfoQ/hqdefault.jpg'" alt="Short-form motion graphics example">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
@@ -2525,7 +2538,7 @@
                 </div>
             </div>
 
-            <div class="pricing-card tilt" data-video-type="short">
+            <div class="pricing-card" data-video-type="short">
                 <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtube.com/shorts/2tT-PO0y9Mc?si=zlDZp7vl5JsxofIe">
                     <img src="https://img.youtube.com/vi/2tT-PO0y9Mc/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2tT-PO0y9Mc/hqdefault.jpg'" alt="Simple short-form video example">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
@@ -2550,7 +2563,7 @@
             </div>
         </div>
 
-        <div class="custom-pricing-callout container tilt">
+        <div class="custom-pricing-callout container">
             <h3>Need a <span class="red-text">custom package?</span></h3>
             <p>Every project is different. Pricing may vary depending on content complexity, turnaround time, project scope, revisions, and long-term collaboration. If your requirements don't match one of the packages above, I'll create a custom quote tailored specifically to your project.</p>
             <div class="pricing-cta">
@@ -2765,7 +2778,7 @@
                     cursorOutline.animate({ left: `${posX - 20}px`, top: `${posY - 20}px` }, { duration: 450, fill: 'forwards' });
                 }, { passive: true });
 
-                document.querySelectorAll('a, button, .video-trigger, .tilt, .faq-question, .hero-reel-trigger').forEach(el => {
+                document.querySelectorAll('a, button, .video-trigger, .tilt, .pricing-card, .custom-pricing-callout, .faq-question, .hero-reel-trigger').forEach(el => {
                     el.addEventListener('mouseenter', () => {
                         cursorOutline.style.width = '60px';
                         cursorOutline.style.height = '60px';
