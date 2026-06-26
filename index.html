@@ -153,6 +153,9 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
         }
 
         .nav-profile-img {
@@ -524,14 +527,69 @@
         }
 
         .work-img-container.is-previewing .work-overlay {
-            background: rgba(0,0,0,0.18);
-            opacity: 1;
+            background: transparent;
+            opacity: 0 !important;
+            pointer-events: none;
             z-index: 2;
         }
 
         .work-img-container.is-previewing .big-play-btn {
-            transform: scale(0.78);
-            opacity: 0.85;
+            transform: scale(0.55);
+            opacity: 0;
+        }
+
+        .case-visual.is-previewing img {
+            opacity: 0;
+        }
+
+        .case-visual.is-previewing .hover-preview-iframe {
+            opacity: 1;
+        }
+
+        .case-visual.is-previewing .case-play-overlay {
+            background: transparent;
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .case-visual.is-previewing .case-play-btn {
+            transform: scale(0.55);
+            opacity: 0;
+        }
+
+
+        /* --- BREAKDOWN HOVER PREVIEW FIX --- */
+        .case-visual.video-trigger {
+            cursor: pointer;
+        }
+
+        .case-visual .hover-preview-iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.25s ease;
+        }
+
+        .case-visual.is-previewing img {
+            opacity: 0;
+        }
+
+        .case-visual.is-previewing .hover-preview-iframe {
+            opacity: 1;
+        }
+
+        .case-visual.is-previewing .case-play-overlay {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        .case-visual.is-previewing .case-timeline-preview {
+            opacity: 0;
         }
 
         /* --- SERVICES --- */
@@ -670,6 +728,7 @@
             transition: 0.3s;
         }
         .work-card:hover .work-overlay { opacity: 1; }
+        .work-card:hover .work-img-container.video-trigger .work-overlay { opacity: 0; pointer-events: none; }
 
         /* --- CASE STUDIES --- */
         .case-studies-grid {
@@ -758,7 +817,11 @@
             transition: background 0.35s ease;
         }
 
-        .case-card:hover .case-play-overlay { background: rgba(215,38,38,0.16); }
+        .case-card:hover .case-play-overlay {
+            background: transparent;
+            opacity: 0;
+            pointer-events: none;
+        }
 
         .case-play-btn {
             width: 72px;
@@ -1177,6 +1240,255 @@
             font-size: 0.75rem;
             font-weight: 700;
         }
+
+
+        /* --- PRICING --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(16,16,16,0.96), rgba(7,7,7,0.94));
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+            transform-style: preserve-3d;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(215,38,38,0.16), transparent 58%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .pricing-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 90%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transform: skewX(-18deg);
+            transition: left 0.7s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .pricing-card:hover::before { opacity: 1; }
+        .pricing-card:hover::after { left: 120%; }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(215,38,38,0.55);
+            box-shadow: 0 30px 75px rgba(0,0,0,0.46), 0 0 35px rgba(215,38,38,0.16);
+            background: var(--bg-card-hover);
+        }
+
+        .pricing-video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #050505;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease, opacity 0.35s ease;
+        }
+
+        .pricing-card:hover .pricing-video img { transform: scale(1.06); }
+
+        .pricing-card[data-video-type="short"] .pricing-video {
+            width: min(62%, 230px);
+            aspect-ratio: 9 / 16;
+            margin: 22px auto 0;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 22px 45px rgba(0,0,0,0.35);
+        }
+
+        .pricing-card[data-video-type="short"] .pricing-content {
+            padding-top: 28px;
+        }
+
+        .pricing-content {
+            padding: 28px;
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .pricing-kicker {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: 8px;
+            padding: 6px 11px;
+            border-radius: 999px;
+            background: rgba(215,38,38,0.09);
+            border: 1px solid rgba(215,38,38,0.25);
+            color: var(--primary-red);
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.28rem;
+            margin-bottom: 18px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .price-label {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .price-value {
+            color: var(--highlight);
+            font-family: var(--font-head);
+            font-size: clamp(1.65rem, 2vw, 2.05rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .pricing-turnaround {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 22px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-bottom: 28px;
+            flex: 1;
+        }
+
+        .pricing-features li {
+            color: var(--text-muted);
+            font-size: 0.86rem;
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .pricing-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+        }
+
+        .pricing-card .pricing-card-cta {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .pricing-card .pricing-card-cta span:last-child {
+            color: var(--primary-red);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .custom-pricing-callout {
+            margin-top: 42px;
+            background: radial-gradient(circle at 50% 0%, rgba(215,38,38,0.18), transparent 44%), linear-gradient(145deg, rgba(16,16,16,0.96), rgba(8,8,8,0.92));
+            border: 1px solid rgba(215,38,38,0.28);
+            border-radius: 24px;
+            padding: 38px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 75px rgba(0,0,0,0.35), 0 0 38px rgba(215,38,38,0.08);
+        }
+
+        .custom-pricing-callout::before {
+            content: '';
+            position: absolute;
+            inset: 22px;
+            border: 1px dashed rgba(215,38,38,0.26);
+            border-radius: 18px;
+            pointer-events: none;
+        }
+
+        .custom-pricing-callout h3 {
+            font-size: clamp(1.6rem, 3vw, 2.45rem);
+            margin-bottom: 14px;
+        }
+
+        .custom-pricing-callout p {
+            color: var(--text-muted);
+            max-width: 980px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing-cta {
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding: 28px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing-cta h3 {
+            font-size: 1.45rem;
+            margin-bottom: 6px;
+        }
+
+        .pricing-cta p {
+            color: var(--text-muted);
+            margin: 0;
+            max-width: 760px;
+        }
+
         /* --- FAQ --- */
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item { border-bottom: 1px solid var(--border); }
@@ -1456,6 +1768,61 @@
             }
         }
 
+
+
+
+        /* --- PRICING RESPONSIVE FIXES --- */
+        @media (max-width: 1180px) {
+            .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 720px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-content { padding: 24px; }
+            .pricing-card[data-video-type="short"] .pricing-video { width: min(68%, 240px); }
+            .custom-pricing-callout { padding: 30px 24px; }
+            .custom-pricing-callout::before { inset: 14px; }
+            .pricing-cta { padding: 22px; }
+        }
+
+
+        /* --- PROJECT VIDEO PLAY BUTTON + HOVER PREVIEW --- */
+        /* Show a clean play button on project cards before hover/tap */
+        .work-img-container.video-trigger .work-overlay {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.28));
+            z-index: 3;
+        }
+
+        .work-img-container.video-trigger .big-play-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        /* Hide the website play button once hover preview starts */
+        .work-img-container.video-trigger:hover .work-overlay,
+        .work-img-container.video-trigger.is-previewing .work-overlay {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            background: transparent !important;
+        }
+
+        .work-img-container.video-trigger:hover .big-play-btn,
+        .work-img-container.video-trigger.is-previewing .big-play-btn {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: scale(0.45) !important;
+            pointer-events: none !important;
+        }
+
+        .work-img-container.video-trigger.is-previewing::after {
+            opacity: 0 !important;
+        }
+
     </style>
 </head>
 <body>
@@ -1466,18 +1833,19 @@
     <div id="canvas-container"></div>
 
     <nav>
-        <div class="nav-brand">
+        <a href="#home" class="nav-brand logo-home" aria-label="Back to Home">
             <!-- Replace this src with your profile image -->
             <img src="input_file_0.png" alt="Abhi" class="nav-profile-img">
             <div class="nav-brand-text">
                 <h4>ABHI</h4>
                 <span>Motion Designer / Video Editor</span>
             </div>
-        </div>
+        </a>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#showreel">Showreel</a>
             <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
             <a href="#work">Work</a>
             <a href="#case-studies">Breakdown</a>
             <a href="#process">Process</a>
@@ -1634,8 +2002,8 @@
             <!-- Thumbnail tip: replace each <img src="..."> with your own 16:9 long-form/brand thumbnail or 9:16 short-form thumbnail for best results. -->
 
             <div class="work-card" data-category="long">
-                <div class="work-img-container video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">
-                    <img src="https://img.youtube.com/vi/4s-38MIhaKg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/4s-38MIhaKg/hqdefault.jpg'" alt="Problem With Fitness Tier Lists">
+                <div class="work-img-container video-trigger" data-youtube="https://youtu.be/YAHxPgKXIFw">
+                    <img src="https://img.youtube.com/vi/YAHxPgKXIFw/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/YAHxPgKXIFw/hqdefault.jpg'" alt="Problem With Fitness Tier Lists">
                     <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
                 </div>
                 <div class="work-info">
@@ -1846,7 +2214,7 @@
                         </ul>
                     </div>
                     <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
+                        <span class="case-note">Hover to preview. Click to watch with sound.</span>
                         <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/4s-38MIhaKg?feature=share">Watch Breakdown</button>
                     </div>
                 </div>
@@ -1886,7 +2254,7 @@
                         </ul>
                     </div>
                     <div class="case-cta">
-                        <span class="case-note">Click the preview to watch the before/after breakdown.</span>
+                        <span class="case-note">Hover to preview. Click to watch with sound.</span>
                         <button class="btn btn-outline video-trigger" data-youtube="https://youtube.com/shorts/HGptuF0sdWE?feature=share">Watch Breakdown</button>
                     </div>
                 </div>
@@ -2075,6 +2443,126 @@
         </div>
     </section>
 
+
+
+    <section id="pricing">
+        <div class="section-header">
+            <h2>Pricing <span class="red-text">Packages</span></h2>
+            <p>Clear starting points for different content needs. Every project is shaped around quality, complexity, turnaround, and the final output you need.</p>
+        </div>
+
+        <div class="pricing-grid container">
+            <div class="pricing-card tilt" data-video-type="wide">
+                <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtu.be/2XiiI_GJtRE?si=XupkX2VjSwezJ5i6">
+                    <img src="https://img.youtube.com/vi/2XiiI_GJtRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2XiiI_GJtRE/hqdefault.jpg'" alt="SaaS Ads and Complex Motion Graphics example">
+                    <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
+                </div>
+                <div class="pricing-content">
+                    <span class="pricing-kicker">Premium Motion</span>
+                    <h3>SaaS Ads / Complex Motion Graphics</h3>
+                    <div class="price-row">
+                        <span class="price-label">Starting at</span>
+                        <span class="price-value">$250/min</span>
+                    </div>
+                    <div class="pricing-turnaround">Turnaround: <strong>3–10 Days</strong></div>
+                    <ul class="pricing-features">
+                        <li>Advanced Motion Graphics</li>
+                        <li>SaaS/Product Ads</li>
+                        <li>UI Animations</li>
+                        <li>High-End Visual Effects</li>
+                        <li>Custom Visual Storytelling</li>
+                    </ul>
+                    <div class="pricing-card-cta"><span>Example preview included</span><span>Watch</span></div>
+                </div>
+            </div>
+
+            <div class="pricing-card tilt" data-video-type="wide">
+                <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtu.be/gF6EKgkIrCg?si=i7qnGH19CE2Ga1Pp">
+                    <img src="https://img.youtube.com/vi/gF6EKgkIrCg/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/gF6EKgkIrCg/hqdefault.jpg'" alt="Long-form video example">
+                    <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
+                </div>
+                <div class="pricing-content">
+                    <span class="pricing-kicker">YouTube Editing</span>
+                    <h3>Long-Form Videos</h3>
+                    <div class="price-row">
+                        <span class="price-label">Starting at</span>
+                        <span class="price-value">$100–150/min</span>
+                    </div>
+                    <div class="pricing-turnaround">Turnaround: <strong>6–7 Days</strong></div>
+                    <ul class="pricing-features">
+                        <li>Talking Head Videos</li>
+                        <li>Educational Content</li>
+                        <li>Documentary Style</li>
+                        <li>Smooth Motion Graphics</li>
+                        <li>Retention-Focused Editing</li>
+                    </ul>
+                    <div class="pricing-card-cta"><span>Example preview included</span><span>Watch</span></div>
+                </div>
+            </div>
+
+            <div class="pricing-card tilt" data-video-type="short">
+                <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtube.com/shorts/fJAlrXwwfoQ?si=9MYpKJzvazZXWR8Z">
+                    <img src="https://img.youtube.com/vi/fJAlrXwwfoQ/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/fJAlrXwwfoQ/hqdefault.jpg'" alt="Short-form motion graphics example">
+                    <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
+                </div>
+                <div class="pricing-content">
+                    <span class="pricing-kicker">Motion Shorts</span>
+                    <h3>Short-Form Videos (Motion Graphics)</h3>
+                    <div class="price-row">
+                        <span class="price-label">Starting at</span>
+                        <span class="price-value">$100–150/min</span>
+                    </div>
+                    <div class="pricing-turnaround">Built for reels, shorts, and fast-paced vertical content.</div>
+                    <ul class="pricing-features">
+                        <li>Instagram Reels</li>
+                        <li>YouTube Shorts</li>
+                        <li>Motion Graphics</li>
+                        <li>Kinetic Typography</li>
+                        <li>Sound Design</li>
+                        <li>Fast-Paced Editing</li>
+                    </ul>
+                    <div class="pricing-card-cta"><span>Short preview included</span><span>Watch</span></div>
+                </div>
+            </div>
+
+            <div class="pricing-card tilt" data-video-type="short">
+                <div class="pricing-video work-img-container video-trigger" data-youtube="https://youtube.com/shorts/2tT-PO0y9Mc?si=zlDZp7vl5JsxofIe">
+                    <img src="https://img.youtube.com/vi/2tT-PO0y9Mc/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/2tT-PO0y9Mc/hqdefault.jpg'" alt="Simple short-form video example">
+                    <div class="work-overlay"><div class="big-play-btn" style="width:60px; height:60px; font-size:1rem;">▶</div></div>
+                </div>
+                <div class="pricing-content">
+                    <span class="pricing-kicker">Simple Shorts</span>
+                    <h3>Simple Short-Form Videos</h3>
+                    <div class="price-row">
+                        <span class="price-label">Starting at</span>
+                        <span class="price-value">$75/min</span>
+                    </div>
+                    <div class="pricing-turnaround">Clean, platform-ready edits with a fast and smooth workflow.</div>
+                    <ul class="pricing-features">
+                        <li>Clean Editing</li>
+                        <li>Captions</li>
+                        <li>Sound Design</li>
+                        <li>Smooth Transitions</li>
+                        <li>Fast Delivery</li>
+                    </ul>
+                    <div class="pricing-card-cta"><span>Short preview included</span><span>Watch</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-pricing-callout container tilt">
+            <h3>Need a <span class="red-text">custom package?</span></h3>
+            <p>Every project is different. Pricing may vary depending on content complexity, turnaround time, project scope, revisions, and long-term collaboration. If your requirements don't match one of the packages above, I'll create a custom quote tailored specifically to your project.</p>
+            <div class="pricing-cta">
+                <div>
+                    <h3>Ready to bring your content to the next level?</h3>
+                    <p>Let's discuss your project and create a solution that fits your goals, content style, and budget.</p>
+                </div>
+                <a href="#contact" class="btn btn-primary">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
     <section id="faq">
         <div class="section-header">
             <h2>FAQ</h2>
@@ -2124,21 +2612,22 @@
             </div>
 
             <div class="contact-form">
-                <form id="portfolio-form">
+                <form id="portfolio-form" action="https://formspree.io/f/xnjyevwo" method="POST">
+                    <input type="hidden" name="_subject" value="New portfolio work request from Abhi site">
                     <div class="form-row">
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" placeholder="John Doe" required>
+                            <input type="text" name="name" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" placeholder="john@example.com" required>
+                            <input type="email" name="email" placeholder="john@example.com" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Project Type</label>
-                            <select>
+                            <select name="project_type" required>
                                 <option>YouTube Long-form</option>
                                 <option>Short-form / Reels</option>
                                 <option>Brand Ad</option>
@@ -2147,7 +2636,7 @@
                         </div>
                         <div class="form-group">
                             <label>Budget Range</label>
-                            <select>
+                            <select name="budget_range" required>
                                 <option>₹10k - ₹25k</option>
                                 <option>₹25k - ₹50k</option>
                                 <option>₹50k+</option>
@@ -2156,7 +2645,7 @@
                     </div>
                     <div class="form-group">
                         <label>Message</label>
-                        <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+                        <textarea name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Work Request</button>
                 </form>
@@ -2176,6 +2665,7 @@
             <a href="#home">Home</a>
             <a href="#work">Portfolio</a>
             <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
             <a href="#about">About</a>
             <a href="#contact">Hire Me</a>
         </div>
@@ -2196,32 +2686,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
             if (isFinePointer) document.body.classList.add('custom-cursor-enabled');
-
-            // --- LOGO / BRAND SMOOTH SCROLL TO TOP ---
-            function smoothScrollToTop(duration = 850) {
-                const startY = window.scrollY || document.documentElement.scrollTop;
-                const startTime = performance.now();
-                const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-                function step(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const eased = easeOutCubic(progress);
-                    window.scrollTo(0, startY * (1 - eased));
-
-                    if (progress < 1) requestAnimationFrame(step);
-                }
-
-                requestAnimationFrame(step);
-            }
-
-            document.querySelectorAll('.nav-brand').forEach(brandLink => {
-                brandLink.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    smoothScrollToTop();
-                    history.replaceState(null, '', window.location.pathname + window.location.search);
-                });
-            });
 
             // --- SAFE THREE.JS BACKGROUND ---
             try {
@@ -2365,7 +2829,8 @@
                 const modalContent = modal?.querySelector('.modal-content');
                 const isVerticalVideo = rawLink.includes('/shorts/') ||
                     Boolean(trigger.closest('.work-card[data-category="short"]')) ||
-                    Boolean(trigger.closest('.case-card[data-case-type="short"]'));
+                    Boolean(trigger.closest('.case-card[data-case-type="short"]')) ||
+                    Boolean(trigger.closest('.pricing-card[data-video-type="short"]'));
 
                 if (iframe && modal) {
                     modalContent?.classList.toggle('is-vertical', isVerticalVideo);
@@ -2384,28 +2849,78 @@
                 document.body.style.overflow = '';
             }
 
-            // Hover preview only on desktop so mobile stays fast.
+            // Project card hover preview: starts on hover and hides the website play overlay.
+            // Click-to-open full YouTube modal is unchanged.
             if (isFinePointer && window.innerWidth > 900) {
                 document.querySelectorAll('.work-img-container.video-trigger').forEach(card => {
-                    let hoverTimer;
-                    card.addEventListener('mouseenter', () => {
+                    function startProjectHoverPreview() {
                         const videoId = getYouTubeId(card.getAttribute('data-youtube'));
-                        if (!videoId || videoId.includes('PASTE') || card.querySelector('.hover-preview-iframe')) return;
-                        hoverTimer = setTimeout(() => {
-                            const preview = document.createElement('iframe');
-                            preview.className = 'hover-preview-iframe';
+                        if (!videoId || videoId.includes('PASTE')) return;
+
+                        card.classList.add('is-previewing');
+
+                        let preview = card.querySelector('.hover-preview-iframe');
+                        if (!preview) {
+                            preview = document.createElement('iframe');
+                            preview.className = 'hover-preview-iframe project-hover-preview-iframe';
                             preview.allow = 'autoplay; encrypted-media; picture-in-picture';
+                            preview.setAttribute('allowfullscreen', '');
                             preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
                             card.appendChild(preview);
-                            card.classList.add('is-previewing');
-                        }, 220);
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        clearTimeout(hoverTimer);
+                        }
+                    }
+
+                    function stopProjectHoverPreview() {
                         card.classList.remove('is-previewing');
                         const preview = card.querySelector('.hover-preview-iframe');
-                        if (preview) setTimeout(() => preview.remove(), 160);
-                    });
+                        if (preview) preview.remove();
+                    }
+
+                    card.addEventListener('mouseenter', startProjectHoverPreview);
+                    card.addEventListener('mouseleave', stopProjectHoverPreview);
+                    card.addEventListener('focusin', startProjectHoverPreview);
+                    card.addEventListener('focusout', stopProjectHoverPreview);
+                });
+            }
+
+
+            // Dedicated Breakdown hover preview: starts immediately on desktop hover.
+            // This affects only the Breakdown / case-study section and keeps click-to-open modal unchanged.
+            if (isFinePointer && window.innerWidth > 900) {
+                document.querySelectorAll('.case-visual.video-trigger').forEach(caseVisual => {
+                    let caseHoverActive = false;
+
+                    function startCaseHoverPreview() {
+                        const videoId = getYouTubeId(caseVisual.getAttribute('data-youtube'));
+                        if (!videoId || videoId.includes('PASTE')) return;
+
+                        caseHoverActive = true;
+                        caseVisual.classList.add('is-previewing');
+
+                        let preview = caseVisual.querySelector('.hover-preview-iframe');
+                        if (!preview) {
+                            preview = document.createElement('iframe');
+                            preview.className = 'hover-preview-iframe case-hover-preview-iframe';
+                            preview.allow = 'autoplay; encrypted-media; picture-in-picture';
+                            preview.setAttribute('allowfullscreen', '');
+                            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
+                            caseVisual.appendChild(preview);
+                        }
+                    }
+
+                    function stopCaseHoverPreview() {
+                        caseHoverActive = false;
+                        caseVisual.classList.remove('is-previewing');
+                        const preview = caseVisual.querySelector('.hover-preview-iframe');
+                        if (preview) {
+                            preview.remove();
+                        }
+                    }
+
+                    caseVisual.addEventListener('mouseenter', startCaseHoverPreview);
+                    caseVisual.addEventListener('mouseleave', stopCaseHoverPreview);
+                    caseVisual.addEventListener('focusin', startCaseHoverPreview);
+                    caseVisual.addEventListener('focusout', stopCaseHoverPreview);
                 });
             }
 
@@ -2452,6 +2967,31 @@
                 if (event.key === 'Escape' && modal?.style.display === 'flex') {
                     closeVideoModal();
                 }
+            });
+
+
+
+            // --- LOGO SCROLL TO TOP ---
+            function smoothScrollToTop(duration = 850) {
+                const startY = window.scrollY || document.documentElement.scrollTop;
+                const startTime = performance.now();
+                const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+                function animate(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = easeOutCubic(progress);
+                    window.scrollTo(0, startY * (1 - eased));
+                    if (progress < 1) requestAnimationFrame(animate);
+                }
+                requestAnimationFrame(animate);
+            }
+
+            document.querySelectorAll('.logo-home, .nav-brand').forEach(brandLink => {
+                brandLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    smoothScrollToTop();
+                });
             });
 
             // --- PORTFOLIO FILTER ---
@@ -2533,11 +3073,49 @@
 
             // --- FORM HANDLING ---
             const form = document.getElementById('portfolio-form');
-            form?.addEventListener('submit', function(e) {
+            form?.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                this.style.display = 'none';
                 const success = document.getElementById('form-success');
-                if (success) success.style.display = 'block';
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn ? submitBtn.textContent : '';
+
+                if (success) {
+                    success.style.display = 'block';
+                    success.style.color = 'var(--text-muted)';
+                    success.textContent = 'Sending your request...';
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                }
+
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        body: new FormData(this),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        this.reset();
+                        this.style.display = 'none';
+                        if (success) {
+                            success.style.color = 'var(--primary-red)';
+                            success.textContent = 'Request sent! I’ll get back to you soon. For a faster response, email me directly at redex1007@gmail.com.';
+                        }
+                    } else {
+                        throw new Error('Formspree submission failed');
+                    }
+                } catch (error) {
+                    if (success) {
+                        success.style.color = 'var(--primary-red)';
+                        success.textContent = 'Something went wrong. Please email me directly at redex1007@gmail.com.';
+                    }
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtnText || 'Send Work Request';
+                    }
+                }
             });
 
             // --- GSAP REVEALS ---
